@@ -3,11 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\JWT\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
+/**
+ * @property mixed $uuid
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -21,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'uuid',
     ];
 
     /**
@@ -41,4 +46,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function generateUUID(): string
+    {
+        $uuid = Str::uuid();
+        if (self::query()->where('uuid', $uuid)->first()) {
+            self::generateUUID();
+        }
+
+        return $uuid;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = self::generateUUID();
+        });
+    }
 }

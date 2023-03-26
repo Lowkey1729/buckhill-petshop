@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Services\JWT\Guard;
+use Illuminate\Auth\RequestGuard;
+use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +25,24 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Auth::resolved(function ($auth) {
+            $auth->extend('jwt', function ($app, $name, array $config) use ($auth) {
+                return tap($this->createGuard($auth, $config), function ($guard) {
+                    app()->refresh('request', $guard, 'setRequest');
+                });
+            });
+        });
+    }
+
+    /**
+     * Register the guard.
+     */
+    protected function createGuard(Factory $auth, array $config): RequestGuard
+    {
+        return new RequestGuard(
+            new Guard($auth, config('sanctum.expiration'), $config['provider']),
+            request(),
+            $auth->createUserProvider($config['provider'] ?? null)
+        );
     }
 }
