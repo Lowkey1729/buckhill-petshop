@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\TransientToken;
 
-class Guard
+final class Guard
 {
     /**
      * The authentication factory implementation.

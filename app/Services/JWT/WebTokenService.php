@@ -37,6 +37,8 @@ final class WebTokenService
 
     protected ClockInterface $clock;
 
+    protected string $appUrl;
+
     /**
      * @throws Exception
      */
@@ -50,21 +52,15 @@ final class WebTokenService
      */
     public function __construct(?User $user)
     {
-        $this->setProperties($user);
-    }
-
-    /**
-     * @throws Exception
-     */
-    protected function setProperties(?User $user): void
-    {
         $this->parser = new Parser(new JoseEncoder());
-        $this->tokenBuilder = (new Builder(new JoseEncoder(), ChainedFormatter::default()));
+        $this->tokenBuilder = (new Builder(new JoseEncoder(),
+            ChainedFormatter::default()));
         $this->signer = new Sha256();
         $this->signingKey = InMemory::plainText(random_bytes(32));
         $this->user = $user;
         $this->now = new DateTimeImmutable();
         $this->expiredAt = $this->now->modify('+1 hour');
+        $this->appUrl = config('app.url');
         $this->clock = new class implements Clock
         {
             public function now(): DateTimeImmutable
