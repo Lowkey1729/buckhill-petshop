@@ -53,4 +53,16 @@ class Product extends Model
         'deleted_at',
         'price',
     ];
+
+    protected $casts = [
+        'metadata' => 'array',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = generate_uuid(new Product());
+        });
+    }
 }

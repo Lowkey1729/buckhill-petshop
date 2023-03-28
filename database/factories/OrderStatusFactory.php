@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\OrderStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrderStatus>
+ * @extends Factory<OrderStatus>
  */
 class OrderStatusFactory extends Factory
 {
@@ -17,7 +18,7 @@ class OrderStatusFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->title,
         ];
     }
 }

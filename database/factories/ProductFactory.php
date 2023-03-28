@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends Factory<Product>
  */
 class ProductFactory extends Factory
 {
@@ -17,7 +19,13 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'category_uuid' => Category::query()
+                ->pluck('uuid')[fake()
+                ->numberBetween(1, Category::query()->count() - 1)],
+            'title' => fake()->word,
+            'metadata' => [],
+            'price' => fake()->numberBetween(900.12, 123.89),
+            'description' => fake()->text,
         ];
     }
 }

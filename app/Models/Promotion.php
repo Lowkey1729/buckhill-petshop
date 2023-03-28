@@ -41,4 +41,16 @@ class Promotion extends Model
         'metadata',
         'content',
     ];
+
+    protected $casts = [
+        'metadata' => 'array',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = generate_uuid(new Promotion());
+        });
+    }
 }

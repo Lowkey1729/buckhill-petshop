@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\File;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\File>
+ * @extends Factory<File>
  */
 class FileFactory extends Factory
 {
@@ -17,7 +18,10 @@ class FileFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->title,
+            'type' => 'mime/type',
+            'size' => '10MB',
+            'path' => fake()->filePath(),
         ];
     }
 }

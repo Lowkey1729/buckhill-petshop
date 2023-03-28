@@ -59,4 +59,17 @@ class Order extends Model
         'products',
         'shipped_at',
     ];
+
+    protected $casts = [
+        'products' => 'array',
+        'address' => 'array',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = generate_uuid(new Order());
+        });
+    }
 }

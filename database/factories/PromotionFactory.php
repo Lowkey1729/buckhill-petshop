@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Promotion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Promotion>
+ * @extends Factory<Promotion>
  */
 class PromotionFactory extends Factory
 {
@@ -17,7 +18,21 @@ class PromotionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'content' => fake()->text,
+            'metadata' => $this->getMetaData(),
+        ];
+    }
+
+    protected function getMetaData(): array
+    {
+        $date = fake()->date;
+
+        return [
+            'valid_from' => $date,
+            'valid_to' => date(
+                'Y-m-d',
+                (int) strtotime($date.' + 10 days')
+            ),
         ];
     }
 }

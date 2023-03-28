@@ -47,4 +47,12 @@ class File extends Model
         'path',
         'size',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = generate_uuid(new File());
+        });
+    }
 }

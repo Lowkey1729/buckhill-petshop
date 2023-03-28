@@ -45,4 +45,16 @@ class Post extends Model
         'content',
         'metadata',
     ];
+
+    protected $casts = [
+        'metadata' => 'array',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = generate_uuid(new Post());
+        });
+    }
 }

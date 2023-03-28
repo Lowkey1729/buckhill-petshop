@@ -38,4 +38,12 @@ class OrderStatus extends Model
         'uuid',
         'title',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = generate_uuid(new OrderStatus());
+        });
+    }
 }

@@ -15,14 +15,12 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 
 /**
  * App\Models\User
  *
  * @property mixed $uuid
  * @property int $id
- * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
@@ -33,23 +31,6 @@ use Illuminate\Support\Str;
  * @property-read int|null $notifications_count
  * @property-read Collection<int, JwtToken> $tokens
  * @property-read int|null $tokens_count
- *
- * @method static UserFactory factory($count = null, $state = [])
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static Builder|User query()
- * @method static Builder|User whereCreatedAt($value)
- * @method static Builder|User whereEmail($value)
- * @method static Builder|User whereEmailVerifiedAt($value)
- * @method static Builder|User whereId($value)
- * @method static Builder|User whereName($value)
- * @method static Builder|User wherePassword($value)
- * @method static Builder|User whereRememberToken($value)
- * @method static Builder|User whereUpdatedAt($value)
- * @method static Builder|User whereUuid($value)
- *
- * @mixin Eloquent
- *
  * @property string $first_name
  * @property string $last_name
  * @property int $is_admin
@@ -59,6 +40,18 @@ use Illuminate\Support\Str;
  * @property int $is_marketing
  * @property string|null $last_login_at
  *
+ * @method static UserFactory factory($count = null, $state = [])
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static Builder|User query()
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereUpdatedAt($value)
+ * @method static Builder|User whereUuid($value)
  * @method static Builder|User whereAddress($value)
  * @method static Builder|User whereAvatar($value)
  * @method static Builder|User whereFirstName($value)
@@ -112,21 +105,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected static function generateUUID(): string
-    {
-        $uuid = Str::uuid();
-        if (self::query()->where('uuid', $uuid)->first()) {
-            self::generateUUID();
-        }
-
-        return $uuid;
-    }
-
     protected static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->uuid = self::generateUUID();
+            $model->uuid = generate_uuid(new User());
         });
     }
 }

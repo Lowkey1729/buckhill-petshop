@@ -41,4 +41,12 @@ class Brand extends Model
         'title',
         'slug',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = generate_uuid(new Brand());
+        });
+    }
 }

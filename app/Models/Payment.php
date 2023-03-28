@@ -41,4 +41,16 @@ class Payment extends Model
         'type',
         'details',
     ];
+
+    protected $casts = [
+        'details' => 'array',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = generate_uuid(new Payment());
+        });
+    }
 }
