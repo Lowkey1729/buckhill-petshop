@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait HasApiTokens
 {
-    public string $plainTextToken;
+    protected string $plainTextToken;
 
-    public array|object $accessToken;
+    protected array|object $accessToken;
 
     /**
      * @return HasMany<JwtToken>
@@ -26,14 +26,14 @@ trait HasApiTokens
      */
     public function createToken(string $tokenTitle): self
     {
-        $jwtService = WebTokenService::initiate($this);
-        $this->setPlainTextToken($jwtService->issueToken());
+        $jwtService = new WebTokenService($this);
+        $this->plainTextToken = $jwtService->issueToken();
         $token = $this->tokens()->create([
             'unique_id' => hash('sha256', $this->getPlainTextToken()),
             'token_title' => $tokenTitle,
-            'expires_at' => $jwtService->expiredAt,
+            'expires_at' => $jwtService->getExpiresAt(),
         ]);
-        $this->setAccessToken($token);
+        $this->accessToken = $token;
 
         return $this;
     }
@@ -55,18 +55,8 @@ trait HasApiTokens
         return $this->plainTextToken;
     }
 
-    public function setPlainTextToken(string $plainTextToken): void
-    {
-        $this->plainTextToken = $plainTextToken;
-    }
-
     public function getAccessToken(): object|array
     {
         return $this->accessToken;
-    }
-
-    public function setAccessToken(object|array $accessToken): void
-    {
-        $this->accessToken = $accessToken;
     }
 }

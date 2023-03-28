@@ -31,7 +31,7 @@ final class WebTokenService
 
     protected ?User $user;
 
-    public DateTimeImmutable $expiredAt;
+    protected DateTimeImmutable $expiresAt;
 
     protected DateTimeImmutable $now;
 
@@ -42,26 +42,20 @@ final class WebTokenService
     /**
      * @throws Exception
      */
-    public static function initiate(?User $user): self
-    {
-        return new self($user);
-    }
-
-    /**
-     * @throws Exception
-     */
     public function __construct(?User $user)
     {
         $this->parser = new Parser(new JoseEncoder());
-        $this->tokenBuilder = (new Builder(new JoseEncoder(),
-            ChainedFormatter::default()));
+        $this->tokenBuilder = (new Builder(
+            new JoseEncoder(),
+            ChainedFormatter::default()
+        ));
         $this->signer = new Sha256();
         $this->signingKey = InMemory::plainText(random_bytes(32));
         $this->user = $user;
         $this->now = new DateTimeImmutable();
-        $this->expiredAt = $this->now->modify('+1 hour');
+        $this->expiresAt = $this->now->modify(config('jwt.expiration'));
         $this->appUrl = config('app.url');
-        $this->clock = new class implements Clock
+        $this->clock = new class() implements Clock
         {
             public function now(): DateTimeImmutable
             {
@@ -70,6 +64,10 @@ final class WebTokenService
         };
     }
 
+    /**
+     * Token is issued based on the request host,
+     * the user uuid and the time it should it expire
+     */
     public function issueToken(): string
     {
         $token = $this->tokenBuilder
@@ -78,7 +76,7 @@ final class WebTokenService
             ->identifiedBy($this->user?->uuid)
             ->issuedAt($this->now)
             ->canOnlyBeUsedAfter($this->now->modify('+0 minute'))
-            ->expiresAt($this->expiredAt)
+            ->expiresAt($this->expiresAt)
             ->withHeader('alg', $this->signer->algorithmId())
             ->getToken($this->signer, $this->signingKey);
 
@@ -86,6 +84,9 @@ final class WebTokenService
     }
 
     /**
+     * This validates the token based on if the request host that issued it,
+     * the user uuid and the time it expires matches that of the token
+     *
      * @param  non-empty-string  $token
      */
     public function validateToken(string $token): bool
@@ -97,7 +98,6 @@ final class WebTokenService
             new IdentifiedBy($this->user?->uuid),
             new IssuedBy(config('app.url')),
             (new StrictValidAt($this->clock))
-
         );
     }
 
@@ -116,5 +116,13 @@ final class WebTokenService
         );
 
         return $parsedToken->toString();
+    }
+
+    /**
+     * @return DateTimeImmutable|false
+     */
+    public function getExpiresAt(): DateTimeImmutable|bool
+    {
+        return $this->expiresAt;
     }
 }
