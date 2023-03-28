@@ -49,6 +49,26 @@ use Illuminate\Support\Str;
  * @method static Builder|User whereUuid($value)
  *
  * @mixin Eloquent
+ *
+ * @property string $first_name
+ * @property string $last_name
+ * @property int $is_admin
+ * @property string $avatar
+ * @property string $address
+ * @property string $phone_number
+ * @property int $is_marketing
+ * @property string|null $last_login_at
+ *
+ * @method static Builder|User whereAddress($value)
+ * @method static Builder|User whereAvatar($value)
+ * @method static Builder|User whereFirstName($value)
+ * @method static Builder|User whereIsAdmin($value)
+ * @method static Builder|User whereIsMarketing($value)
+ * @method static Builder|User whereLastLoginAt($value)
+ * @method static Builder|User whereLastName($value)
+ * @method static Builder|User wherePhoneNumber($value)
+ *
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
@@ -60,10 +80,17 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
         'uuid',
+        'first_name',
+        'last_name',
+        'is_admin',
+        'avatar',
+        'address',
+        'phone_number',
+        'is_marketing',
+        'last_login_at',
     ];
 
     /**
