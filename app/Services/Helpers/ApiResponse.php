@@ -10,8 +10,8 @@ class ApiResponse
     public static function success(
         array $data = [],
         array $extraData = [],
-        int   $httpStatusCode = 200): JsonResponse
-    {
+        int $httpStatusCode = 200
+    ): JsonResponse {
         return response()->json([
             'success' => ApiResponseEnum::success()->value,
             'data' => $data,
@@ -24,10 +24,10 @@ class ApiResponse
 
     public static function failed(
         string $errorMessage,
-        array  $errors = [],
-        array  $errorTrace = [],
-        int    $httpStatusCode = 200): JsonResponse
-    {
+        array $errors = [],
+        array $errorTrace = [],
+        int $httpStatusCode = 200
+    ): JsonResponse {
         return response()->json([
             'success' => ApiResponseEnum::failed()->value,
             'data' => [],
