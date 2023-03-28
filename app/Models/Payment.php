@@ -7,6 +7,7 @@ use Database\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -45,6 +46,14 @@ class Payment extends Model
     protected $casts = [
         'details' => 'array',
     ];
+
+    /**
+     * @return HasOne<Order>
+     */
+    public function order(): HasOne
+    {
+        return $this->hasOne(Order::class);
+    }
 
     protected static function boot()
     {
