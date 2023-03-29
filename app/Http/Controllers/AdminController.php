@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
 use App\Services\Helpers\ApiResponse;
+use App\Services\ModelFilters\UserFilters\FilterUser;
 use App\Services\Traits\Auth\Login as LoginTrait;
 use App\Services\Traits\Auth\Register as RegisterTrait;
 use Illuminate\Http\JsonResponse;
@@ -11,7 +12,8 @@ use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
-    use LoginTrait, RegisterTrait;
+    use LoginTrait;
+    use RegisterTrait;
 
     public function login(AdminRequest $request): JsonResponse
     {
@@ -59,7 +61,12 @@ class AdminController extends Controller
 
     public function userListing(AdminRequest $request): JsonResponse
     {
-        return ApiResponse::success();
+        $data = array_filter($request->all(), 'strlen');
+        $users = FilterUser::apply($data)
+            ->latest()
+            ->paginate($request->limit ?? 10);
+
+        return ApiResponse::success($users);
     }
 
     public function deleteUser(AdminRequest $request): JsonResponse

@@ -55,8 +55,7 @@ final class WebTokenService
         $this->now = new DateTimeImmutable();
         $this->expiresAt = $this->now->modify(config('jwt.expiration'));
         $this->appUrl = config('app.url');
-        $this->clock = new class() implements Clock
-        {
+        $this->clock = new class () implements Clock {
             public function now(): DateTimeImmutable
             {
                 return new DateTimeImmutable();
