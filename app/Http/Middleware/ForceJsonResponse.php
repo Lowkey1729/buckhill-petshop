@@ -16,7 +16,7 @@ class ForceJsonResponse
     public function handle(Request $request, Closure $next): Response
     {
         $request->headers->set('Accept', 'application/json');
-        $request->headers->set('Content-Type', 'application/json');
+        $request->headers->set('Content-Type', 'application/x-www-form-urlencoded');
 
         return $next($request);
     }

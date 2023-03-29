@@ -24,13 +24,14 @@ class ApiResponse
 
     public static function failed(
         string $errorMessage,
+        array $data = [],
         array $errors = [],
         array $errorTrace = [],
         int $httpStatusCode = 200
     ): JsonResponse {
         return response()->json([
             'success' => ApiResponseEnum::failed()->value,
-            'data' => [],
+            'data' => $data,
             'error' => $errorMessage,
             'errors' => $errors,
             'trace' => $errorTrace,

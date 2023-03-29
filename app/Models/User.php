@@ -85,6 +85,7 @@ class User extends Authenticatable
         'phone_number',
         'is_marketing',
         'last_login_at',
+        'email_verified_at',
     ];
 
     /**
