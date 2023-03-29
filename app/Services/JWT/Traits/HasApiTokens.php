@@ -11,7 +11,7 @@ trait HasApiTokens
 {
     protected string $plainTextToken;
 
-    protected array|object $accessToken;
+    protected JwtToken $accessToken;
 
     /**
      * @return HasMany<JwtToken>
@@ -38,12 +38,12 @@ trait HasApiTokens
         return $this;
     }
 
-    public function currentAccessToken(): array|object
+    public function currentAccessToken(): JwtToken
     {
         return $this->getAccessToken();
     }
 
-    public function withAccessToken(object|array $accessToken): self
+    public function withAccessToken(JwtToken $accessToken): self
     {
         $this->accessToken = $accessToken;
 
@@ -55,8 +55,18 @@ trait HasApiTokens
         return $this->plainTextToken;
     }
 
-    public function getAccessToken(): object|array
+    public function getAccessToken(): JwtToken
     {
         return $this->accessToken;
+    }
+
+    public function deleteAccessToken(): void
+    {
+        JwtToken::query()
+            ->with('user')
+            ->where(
+                'unique_id',
+                hash('sha256', request()->bearerToken())
+            )?->delete();
     }
 }

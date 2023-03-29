@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -40,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @property string $phone_number
  * @property int $is_marketing
  * @property string|null $last_login_at
+ * @property string|null $deleted_at
  *
  * @method static UserFactory factory($count = null, $state = [])
  * @method static Builder|User newModelQuery()
@@ -59,6 +61,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User whereIsAdmin($value)
  * @method static Builder|User whereIsMarketing($value)
  * @method static Builder|User whereLastLoginAt($value)
+ * @method static Builder|User whereDeletedAt($value)
  * @method static Builder|User whereLastName($value)
  * @method static Builder|User wherePhoneNumber($value)
  *
@@ -69,8 +72,9 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use SoftDeletes;
 
-    /**
+    /*
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -88,6 +92,7 @@ class User extends Authenticatable
         'is_marketing',
         'last_login_at',
         'email_verified_at',
+        'deleted_at'
     ];
 
     /**

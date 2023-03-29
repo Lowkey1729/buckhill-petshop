@@ -6,8 +6,9 @@ use App\Models\User;
 use App\Services\Enums\UserType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Throwable;
 
-class LoginTest extends TestCase
+class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -23,11 +24,9 @@ class LoginTest extends TestCase
     public function it_validates_login_request(): void
     {
         $user = User::query()->first();
-        $response = $this->json('POST', route('admin.login'), [
+        $this->json('POST', route('admin.login'), [
             'email' => $user?->email,
-        ]);
-
-        $response->assertStatus(422);
+        ])->assertStatus(422);
     }
 
     /**
@@ -35,12 +34,10 @@ class LoginTest extends TestCase
      */
     public function it_can_check_if_credentials_are_correct(): void
     {
-        $response = $this->json('POST', route('admin.login'), [
+        $this->json('POST', route('admin.login'), [
             'email' => 'olarewajumojeed9@gmail',
             'password' => 'olarewaju9',
-        ]);
-
-        $response->assertStatus(401);
+        ])->assertStatus(401);
     }
 
     /**
@@ -50,12 +47,10 @@ class LoginTest extends TestCase
     {
         $user = User::query()->first();
         $user?->update(['email_verified_at' => null]);
-        $response = $this->json('POST', route('admin.login'), [
+        $this->json('POST', route('admin.login'), [
             'email' => $user?->email,
             'password' => 1234,
-        ]);
-
-        $response->assertStatus(401);
+        ])->assertStatus(401);
     }
 
     /**
@@ -82,11 +77,57 @@ class LoginTest extends TestCase
     {
         $user = User::query()->first();
         $user?->update(['is_admin' => 0]);
-        $response = $this->json('POST', route('admin.login'), [
+        $this->json('POST', route('admin.login'), [
             'email' => $user?->email,
             'password' => 1234,
+        ])->assertStatus(403);
+    }
+
+
+    /**
+     * @test
+     */
+    public function it_can_validate_create_request(): void
+    {
+        $this->json('POST', route('admin.create'), [])
+            ->assertStatus(422);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_generate_token_for_created_user(): void
+    {
+        $response = $this->json('POST', route('admin.create'), [
+            'first_name' => fake()->firstName,
+            'last_name' => fake()->lastName,
+            'email' => fake()->email,
+            'phone_number' => fake()->phoneNumber,
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'is_admin' => UserType::admin()->value,
+            'address' => fake()->address,
+            'marketing' => '1',
+            'avatar' => fake()->uuid,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertStatus(200);
+        $data = $response->json();
+        $this->assertArrayHasKey('token', $data['data']);
+    }
+
+    /**
+     * @test
+     * @throws Throwable
+     */
+    public function it_can_logout_user(): void
+    {
+        $token = $this->getAccessToken();
+
+
+        $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->json('GET', route('admin.logout'))
+            ->assertStatus(200);
     }
 }

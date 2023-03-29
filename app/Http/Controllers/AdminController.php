@@ -82,13 +82,19 @@ class AdminController extends Controller
         return ApiResponse::success($users);
     }
 
-    public function deleteUser(AdminRequest $request): JsonResponse
+    public function deleteUser(AdminRequest $request, string $uuid): JsonResponse
     {
+        $user = User::whereUuid($uuid)->first();
+        if (!$user) {
+            return ApiResponse::failed("User not found", httpStatusCode: 404);
+        }
+        $user->delete();
         return ApiResponse::success();
     }
 
     public function logout(): JsonResponse
     {
+        request()->user()?->deleteAccessToken();
         return ApiResponse::success();
     }
 }

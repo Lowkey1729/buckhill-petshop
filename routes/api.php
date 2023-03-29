@@ -26,7 +26,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::middleware('auth:jwt')->group(function () {
         Route::group(['prefix' => 'admin'], function () {
             Route::middleware('is_admin')->group(function () {
-                Route::post('logout', [AdminController::class, 'logout'])
+                Route::get('logout', [AdminController::class, 'logout'])
                     ->name('admin.logout');
 
                 Route::put('user-edit/{uuid}', [AdminController::class, 'editUser'])
@@ -35,7 +35,7 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('user-listing', [AdminController::class, 'userListing'])
                     ->name('admin.user-listing');
 
-                Route::delete('user-delete', [AdminController::class, 'deleteUser'])
+                Route::delete('user-delete/{uuid}', [AdminController::class, 'deleteUser'])
                     ->name('admin.user-delete');
             });
         });

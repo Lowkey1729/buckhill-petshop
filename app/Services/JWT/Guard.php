@@ -29,8 +29,9 @@ final class Guard
     /**
      * Create a new guard instance.
      *
-     * @param  int|null  $expiration
-     * @param  string|null  $provider
+     * @param AuthFactory $auth
+     * @param int|null $expiration
+     * @param string|null $provider
      */
     public function __construct(AuthFactory $auth, int|null $expiration = null, string|null $provider = null)
     {
@@ -50,6 +51,7 @@ final class Guard
             $token = $request->bearerToken();
             $accessToken = JwtToken::query()
                 ->with('user')
+                ->whereHas('user')
                 ->where('unique_id', hash('sha256', $token))->first();
             if (! $accessToken) {
                 return;
