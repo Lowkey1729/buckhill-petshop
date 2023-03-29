@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
+use App\Models\User;
 use App\Services\Helpers\ApiResponse;
 use App\Services\ModelFilters\UserFilters\FilterUser;
 use App\Services\Traits\Auth\Login as LoginTrait;
@@ -20,7 +21,7 @@ class AdminController extends Controller
         $data = $request->all();
         $this->failedAuthentication($data);
 
-        if (! $this->user->is_admin) {
+        if (!$this->user->is_admin) {
             return ApiResponse::failed(
                 'You do not have the permission to access this resource',
                 httpStatusCode: 403
@@ -56,7 +57,19 @@ class AdminController extends Controller
 
     public function editUser(AdminRequest $request, string $uuid): JsonResponse
     {
-        return ApiResponse::success();
+        $user = User::whereUuid($uuid)->first();
+        if (!$user) {
+            return ApiResponse::failed("User not found", httpStatusCode: 404);
+        }
+        $user->update(
+            array_filter(
+                $request->all(),
+                function ($x) {
+                    return !is_null($x);
+                }
+            )
+        );
+        return ApiResponse::success($user);
     }
 
     public function userListing(AdminRequest $request): JsonResponse

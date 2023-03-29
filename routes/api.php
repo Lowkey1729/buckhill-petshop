@@ -29,7 +29,7 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::post('logout', [AdminController::class, 'logout'])
                     ->name('admin.logout');
 
-                Route::put('user-edit/{uuid}}', [AdminController::class, 'editUser'])
+                Route::put('user-edit/{uuid}', [AdminController::class, 'editUser'])
                     ->name('admin.edit-user');
 
                 Route::get('user-listing', [AdminController::class, 'userListing'])
