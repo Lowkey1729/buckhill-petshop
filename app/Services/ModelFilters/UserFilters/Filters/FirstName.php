@@ -17,6 +17,6 @@ final class FirstName implements Filter
      */
     public static function apply(Builder $builder, string $value): Builder
     {
-        return $builder->where('first_name', 'LIKE', "%s$value%s");
+        return $builder->where('first_name', 'LIKE', "%s{$value}%s");
     }
 }

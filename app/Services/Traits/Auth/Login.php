@@ -19,7 +19,7 @@ trait Login
     {
         $user = User::query()->where('email', $data['email'])->first();
 
-        if (! $user || ! Hash::check($data['password'], $user->password)) {
+        if (!$user || !Hash::check($data['password'], $user->password)) {
             throw new HttpResponseException(
                 ApiResponse::failed(
                     'The provided credentials are incorrect.',
@@ -28,7 +28,7 @@ trait Login
             );
         }
 
-        if (! $user->hasVerifiedEmail()) {
+        if (!$user->hasVerifiedEmail()) {
             throw new HttpResponseException(
                 ApiResponse::failed(
                     'Email has not been verified.',
@@ -38,11 +38,6 @@ trait Login
             );
         }
 
-        $this->setUser($user);
-    }
-
-    protected function setUser(User $user): void
-    {
         $this->user = $user;
     }
 }

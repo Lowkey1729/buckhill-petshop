@@ -16,6 +16,6 @@ class Address implements \App\Services\ModelFilters\Filter
      */
     public static function apply(Builder $builder, string $value): Builder
     {
-        return $builder->where('address', 'LIKE', '%s' . $value . '%s');
+        return $builder->where('address', 'LIKE', "%s{$value}%s");
     }
 }
