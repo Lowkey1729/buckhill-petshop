@@ -7,7 +7,7 @@ use App\Services\Enums\UserType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class AuthTest extends TestCase
+class LoginTest extends TestCase
 {
     use RefreshDatabase;
 

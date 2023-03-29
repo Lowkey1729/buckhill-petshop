@@ -15,16 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+    Route::prefix('admin')->group(function () {
+        Route::post('/login', [AdminController::class, 'login'])
+            ->name('admin.login');
+
+        Route::post('/create', [AdminController::class, 'createAdmin'])
+            ->name('admin.create');
+    });
 
     Route::middleware('auth:jwt')->group(function () {
         Route::group(['prefix' => 'admin'], function () {
             Route::middleware('is_admin')->group(function () {
                 Route::post('logout', [AdminController::class, 'logout'])
                     ->name('admin.logout');
-
-                Route::post('create', [AdminController::class, 'createAdmin'])
-                    ->name('admin.create');
 
                 Route::put('user-edit/{uuid}}', [AdminController::class, 'editUser'])
                     ->name('admin.edit-user');

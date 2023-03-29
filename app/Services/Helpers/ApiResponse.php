@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 class ApiResponse
 {
     public static function success(
-        array $data = [],
+        array|object $data = [],
         array $extraData = [],
         int $httpStatusCode = 200
     ): JsonResponse {

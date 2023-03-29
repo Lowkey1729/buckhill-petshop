@@ -35,13 +35,13 @@ class AdminRequest extends FormRequest
         return [
             'first_name' => ['required'],
             'last_name' => ['required'],
-            'email' => ['required'],
-            'password' => ['required'],
+            'email' => ['required', 'string', 'email:rfc', 'unique:users', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required'],
-            'avatar' => ['required'],
-            'address' => ['required'],
-            'phone_number' => ['required'],
-            'is_marketing' => ['required'],
+            'avatar' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'phone_number' => ['required', 'unique:users'],
+            'marketing' => ['required', 'string'],
         ];
     }
 
