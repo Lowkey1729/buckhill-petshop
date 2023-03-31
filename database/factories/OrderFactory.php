@@ -50,8 +50,9 @@ class OrderFactory extends Factory
         return Product::query()
             ->select('uuid')
             ->get()
+            ->collect()
             ->each(function ($product) {
-                collect($product)->merge([
+                $product->forceFill([
                     'quantity' => fake()->numberBetween(1, 7)]);
             })->toArray();
     }
