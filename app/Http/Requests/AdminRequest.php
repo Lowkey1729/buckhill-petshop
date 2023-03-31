@@ -63,8 +63,8 @@ class AdminRequest extends FormRequest
     protected function loginRules(): array
     {
         return [
-            'email' => ['required'],
-            'password' => ['required'],
+            'email' => ['required', 'string', 'email:rfc', 'max:255'],
+            'password' => ['required', 'string', 'min:8']
         ];
     }
 
