@@ -47,6 +47,10 @@ class Payment extends Model
         'details' => 'array',
     ];
 
+    protected $hidden = [
+        'id'
+    ];
+
     /**
      * @return HasOne<Order>
      */

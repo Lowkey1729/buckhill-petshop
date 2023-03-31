@@ -40,6 +40,10 @@ class OrderStatus extends Model
         'title',
     ];
 
+    protected $hidden = [
+        'id'
+    ];
+
     /**
      * @return HasMany<Order>
      */

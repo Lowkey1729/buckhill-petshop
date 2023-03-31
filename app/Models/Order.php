@@ -66,6 +66,10 @@ class Order extends Model
         'address' => 'array',
     ];
 
+    protected $hidden = [
+        'id', 'payment_id', 'order_status_id', 'user_id'
+    ];
+
     /**
      * @return BelongsTo<User, Order>
      */
