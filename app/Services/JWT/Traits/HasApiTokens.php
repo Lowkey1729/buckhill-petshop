@@ -22,6 +22,8 @@ trait HasApiTokens
     }
 
     /**
+     * @param string $tokenTitle
+     * @return self
      * @throws Exception
      */
     public function createToken(string $tokenTitle): self
@@ -38,11 +40,18 @@ trait HasApiTokens
         return $this;
     }
 
+    /**
+     * @return JwtToken
+     */
     public function currentAccessToken(): JwtToken
     {
         return $this->getAccessToken();
     }
 
+    /**
+     * @param JwtToken $accessToken
+     * @return $this
+     */
     public function withAccessToken(JwtToken $accessToken): self
     {
         $this->accessToken = $accessToken;
@@ -50,23 +59,34 @@ trait HasApiTokens
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPlainTextToken(): string
     {
         return $this->plainTextToken;
     }
 
+    /**
+     * @return JwtToken
+     */
     public function getAccessToken(): JwtToken
     {
         return $this->accessToken;
     }
 
+    /**
+     * @return void
+     */
     public function deleteAccessToken(): void
     {
-        JwtToken::query()
-            ->with('user')
-            ->where(
-                'unique_id',
-                hash('sha256', request()->bearerToken())
-            )?->delete();
+        $token = request()->bearerToken();
+        if ($token) {
+            JwtToken::query()
+                ->where(
+                    'unique_id',
+                    hash('sha256', $token)
+                )->delete();
+        }
     }
 }
