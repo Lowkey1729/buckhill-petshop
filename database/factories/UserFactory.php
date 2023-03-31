@@ -23,7 +23,7 @@ class UserFactory extends Factory
             'is_admin' => $this->getPrivilege(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt('1234'), // password
+            'password' => bcrypt('password'), // password
             'avatar' => fake()->uuid,
             'address' => fake()->address,
             'phone_number' => fake()->phoneNumber,
