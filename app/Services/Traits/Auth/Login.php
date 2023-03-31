@@ -14,6 +14,8 @@ trait Login
 
     /**
      * This validates the user/admin authentication request
+     * @param array $data
+     * @return void
      */
     protected function failedAuthentication(array $data): void
     {

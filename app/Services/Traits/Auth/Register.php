@@ -3,15 +3,22 @@
 namespace App\Services\Traits\Auth;
 
 use App\Models\User;
-use App\Services\Enums\UserType;
 
 trait Register
 {
+    /**
+     * @param array $data
+     * @return User
+     */
     public function createUser(array $data): User
     {
         return User::query()->create($this->getData($data));
     }
 
+    /**
+     * @param array $data
+     * @return array
+     */
     protected function getData(array $data): array
     {
         return [
@@ -20,7 +27,6 @@ trait Register
             'email' => $data['email'],
             'phone_number' => $data['phone_number'],
             'password' => bcrypt($data['password']),
-            'is_admin' => UserType::admin()->value,
             'address' => $data['address'],
             'is_marketing' => isset($data['is_marketing']) ? 1 : 0,
             'avatar' => $data['avatar'] ?? null,
