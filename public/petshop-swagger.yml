@@ -1,0 +1,2197 @@
+openapi: 3.0.0
+info:
+  title: Pet Shop API - Swagger Documentation
+  description: >
+
+    <p>This task requires me to create an API that provides the necessary endpoints</p>
+    <p>and HTTP request methods to satisfy the needs of the FE team for them to</p>
+    <p>be able to build the UI.</p>
+  version: 1.0.0
+servers:
+  - url: https://petshop.test
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: [ ]
+tags:
+  - name: product
+  - name: user
+  - name: admin
+paths:
+  /api/v1/product/create:
+    post:
+      tags:
+        - product
+      summary: Create a new product
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                category_uuid:
+                  type: string
+                  description: (Required) Category UUID
+                  example: 35776871-e8a3-499a-9fd5-decbbf9ac336
+                title:
+                  type: string
+                  description: (Required) Product title
+                  example: in labore Ut
+                price:
+                  type: number
+                  description: (Required) Product price
+                  example: '5415.31'
+                description:
+                  type: string
+                  description: (Required) Product description
+                  example: sit
+                image:
+                  type: string
+                  description: (Required) Product metadata
+                  example: 35776871-e8a3-499a-9fd5-decbbf9ac336
+                brand:
+                  type: string
+                  description: (Required) Product metadata
+                  example: Ut sint
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/product/{uuid}:
+    put:
+      tags:
+        - product
+      summary: Update an existing product
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                category_uuid:
+                  type: string
+                  description: (Required) Category UUID
+                  example: 64829884-37e6-4838-bbe7-e0864de59a69
+                title:
+                  type: string
+                  description: (Required) Product title
+                  example: in labore Ut
+                price:
+                  type: integer
+                  description: (Required) Product price
+                  example: '90123'
+                description:
+                  type: string
+                  description: (Required) Product description
+                  example: sit
+                image:
+                  type: string
+                  description: (Required) Product metadata
+                  example: 35776871-e8a3-499a-9fd5-decbbf9ac336
+                brand:
+                  type: string
+                  description: (Required) Product metadata
+                  example: Ut sint
+                metadata:
+                  type: string
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: 500b1738-2e6e-4975-a8d1-ac8634c731a0
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+    delete:
+      tags:
+        - product
+      summary: delete an existing product
+      parameters:
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: velit esse ullamco
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data: [ ]
+                error: null
+                errors: [ ]
+                trace: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+    get:
+      tags:
+        - product
+      summary: Fetch a product
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: velit esse ullamco
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  category_uuid: 35776871-e8a3-499a-9fd5-decbbf9ac336
+                  uuid: 701bdb76-95d5-48aa-af8c-244f7fba9d76
+                  title: in labore Ut
+                  price: 90123
+                  description: sit
+                  metadata:
+                    brand: Ut sint
+                    image: 35776871-e8a3-499a-9fd5-decbbf9ac336
+                  created_at: '2023-03-31T16:53:08.000000Z'
+                  updated_at: '2023-03-31T17:11:39.000000Z'
+                  deleted_at: null
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user:
+    get:
+      tags:
+        - user
+      summary: View a User account
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  uuid: 2bd26f4d-108f-4ac2-8b52-54678038c954
+                  first_name: Devyn
+                  last_name: Carroll
+                  email: lowe.roderick@example.net
+                  email_verified_at: '2023-04-01T05:00:56.000000Z'
+                  avatar: 14dfca65-c440-3b1c-8d92-56edf3b420b5
+                  address: |-
+                    45550 Walker Parkways Suite 811
+                    Handland, KS 73165
+                  phone_number: 1-931-218-9983
+                  last_login_at: null
+                  deleted_at: null
+                  created_at: '2023-04-01T05:00:57.000000Z'
+                  updated_at: '2023-04-01T08:22:35.000000Z'
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data: [ ]
+                error: Api resource not found
+                errors: [ ]
+                trace: [ ]
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data: [ ]
+                error: An unexpected error was encountered.
+                errors: [ ]
+                trace: [ ]
+        undefined:
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+    delete:
+      tags:
+        - user
+      summary: Delete a User account
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data: [ ]
+                error: null
+                errors: [ ]
+                trace: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data: [ ]
+                error: Not authenticated
+                errors: [ ]
+                trace: [ ]
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/orders:
+    get:
+      tags:
+        - user
+      summary: List all orders for the user
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  orders:
+                    current_page: 1
+                    data:
+                      - uuid: 0cbf6e29-1df0-446b-b2c2-c42f1a060208
+                        products:
+                          - uuid: 500b1738-2e6e-4975-a8d1-ac8634c731a0
+                            quantity: 1
+                          - uuid: 26305dcf-f05e-44ac-9fb1-624a6d274048
+                            quantity: 4
+                          - uuid: 894d558c-d947-49c8-a76b-efd293a7159c
+                            quantity: 5
+                          - uuid: 6f46a7cb-2236-44c8-9087-d53d2c934a72
+                            quantity: 3
+                          - uuid: 698c1432-266c-4193-bb9f-ec4bf82a25d5
+                            quantity: 3
+                          - uuid: 04b275a3-f376-403c-97b1-8572ce37f38e
+                            quantity: 2
+                          - uuid: 36f8e4d3-5cbd-4968-89a1-495b4348f35c
+                            quantity: 5
+                          - uuid: 80223544-894b-4dca-9469-c80a032cb026
+                            quantity: 1
+                          - uuid: e9c64334-9a2f-4e1f-9448-3e3c804849e8
+                            quantity: 1
+                          - uuid: db837122-f839-4e42-9f4d-7ef8e5fb6fd0
+                            quantity: 7
+                        address:
+                          billing: 352 O'Reilly Ports Suite 556
+                          shipping: |-
+                            755 Hahn Island
+                            Metzport, TN 06530-4204
+                        delivery_fee: 6
+                        amount: 761
+                        created_at: '2023-04-01T05:00:57.000000Z'
+                        updated_at: '2023-04-01T05:00:57.000000Z'
+                        shipped_at: '2023-04-01 05:00:57'
+                        payment:
+                          uuid: 097fbd37-739f-4083-bbbc-1871ace6d71f
+                          type: credit_card
+                          details:
+                            iban: MK25709098XFFG89025
+                            name: Duncan Dibbert
+                            swift: ZCVJIWUFWS1
+                          created_at: '2023-04-01T05:00:57.000000Z'
+                          updated_at: '2023-04-01T05:00:57.000000Z'
+                        order_status:
+                          uuid: 986f3482-e83e-4459-9bf6-d825732faa52
+                          title: Dr.
+                          created_at: '2023-04-01T05:00:57.000000Z'
+                          updated_at: '2023-04-01T05:00:57.000000Z'
+                      - uuid: af3dbd5b-2e77-4190-bf1f-6d8e28508279
+                        products:
+                          - uuid: 500b1738-2e6e-4975-a8d1-ac8634c731a0
+                            quantity: 3
+                          - uuid: 26305dcf-f05e-44ac-9fb1-624a6d274048
+                            quantity: 5
+                          - uuid: 894d558c-d947-49c8-a76b-efd293a7159c
+                            quantity: 7
+                          - uuid: 6f46a7cb-2236-44c8-9087-d53d2c934a72
+                            quantity: 1
+                          - uuid: 698c1432-266c-4193-bb9f-ec4bf82a25d5
+                            quantity: 3
+                          - uuid: 04b275a3-f376-403c-97b1-8572ce37f38e
+                            quantity: 5
+                          - uuid: 36f8e4d3-5cbd-4968-89a1-495b4348f35c
+                            quantity: 5
+                          - uuid: 80223544-894b-4dca-9469-c80a032cb026
+                            quantity: 5
+                          - uuid: e9c64334-9a2f-4e1f-9448-3e3c804849e8
+                            quantity: 2
+                          - uuid: db837122-f839-4e42-9f4d-7ef8e5fb6fd0
+                            quantity: 2
+                        address:
+                          billing: 780 Considine Circle
+                          shipping: |-
+                            61948 McLaughlin Stravenue Apt. 893
+                            Trishamouth, LA 68910
+                        delivery_fee: 7
+                        amount: 115
+                        created_at: '2023-04-01T05:00:57.000000Z'
+                        updated_at: '2023-04-01T05:00:57.000000Z'
+                        shipped_at: '2023-04-01 05:00:57'
+                        payment:
+                          uuid: dd13f040-a878-45ee-9ce6-3d479e6880c6
+                          type: bank_transfer
+                          details:
+                            address: |-
+                              5504 Ambrose Cape Apt. 708
+                              Blockberg, NV 35283
+                            last_name: Eichmann
+                            first_name: Destinee
+                          created_at: '2023-04-01T05:00:57.000000Z'
+                          updated_at: '2023-04-01T05:00:57.000000Z'
+                        order_status:
+                          uuid: 22677978-4da7-45c0-815e-0c05a120389b
+                          title: Dr.
+                          created_at: '2023-04-01T05:00:57.000000Z'
+                          updated_at: '2023-04-01T05:00:57.000000Z'
+                    first_page_url: https://petshop.test/api/v1/user/orders?page=1
+                    from: 1
+                    last_page: 1
+                    last_page_url: https://petshop.test/api/v1/user/orders?page=1
+                    links:
+                      - url: null
+                        label: '&laquo; Previous'
+                        active: false
+                      - url: https://petshop.test/api/v1/user/orders?page=1
+                        label: '1'
+                        active: true
+                      - url: null
+                        label: Next &raquo;
+                        active: false
+                    next_page_url: null
+                    path: https://petshop.test/api/v1/user/orders
+                    per_page: 10
+                    prev_page_url: null
+                    to: 2
+                    total: 2
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data: [ ]
+                error: You have no orders
+                errors: [ ]
+                trace: [ ]
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/edit:
+    put:
+      tags:
+        - user
+      summary: Update a User account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: (Required) User firstname
+                  example: sed fugiat ut voluptate
+                last_name:
+                  type: string
+                  description: (Required) User lastname
+                  example: volupt
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: commodo ut
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: Ut commodo nos
+                password_confirmation:
+                  type: string
+                  description: (Required) User password
+                  example: ali
+                address:
+                  type: string
+                  description: (Required) User main address
+                  example: in officia
+                phone_number:
+                  type: string
+                  description: (Required) User main phone number
+                  example: incididunt quis aute nulla
+                avatar:
+                  type: string
+                  description: Avatar image UUID
+                  example: proident aliqua
+                is_marketing:
+                  type: string
+                  description: User marketing preferences
+                  example: cillum Excepteur laboris
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/login:
+    post:
+      tags:
+        - user
+      summary: Login an User account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: proident occaecat culpa
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: 'qui '
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  token: >-
+                    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdCIsImp0aSI6IjJiZDI2ZjRkLTEwOGYtNGFjMi04YjUyLTU0Njc4MDM4Yzk1NCIsImlhdCI6MTY4MDM2NDEyMS41MjIxMywibmJmIjoxNjgwMzY0MTIxLjUyMjEzLCJleHAiOjE2ODAzNjc3MjEuNTIyMTN9.leKFJKC-pNVZFoV9SeXTrNaipl5LLc1SlcVFVl_Ly_o
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data: [ ]
+                error: Api resource not found
+                errors: [ ]
+                trace: [ ]
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data:
+                  email:
+                    - The email field is required.
+                error: The email field is required.
+                errors: [ ]
+                trace: [ ]
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data: [ ]
+                error: An unexpected error was encountered.
+                errors: [ ]
+                trace: [ ]
+  /api/v1/user/logout:
+    get:
+      tags:
+        - user
+      summary: Logout an User account
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data: [ ]
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/register:
+    post:
+      tags:
+        - user
+      summary: Create a User account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: ola
+                email: mo@gmail.com
+                password: '1234'
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  first_name: Olarewaju
+                  last_name: Mojeed
+                  email: olarewajumojeed9@gmail.com
+                  phone_number: '09010768387'
+                  address: Nigeria
+                  avatar: 1ca5b2b0-b255-47bd-be17-75dd90d39430
+                  uuid: bb135ad9-950e-45bf-8e69-532010cf59fc
+                  updated_at: '2023-04-01T16:35:50.000000Z'
+                  created_at: '2023-04-01T16:35:50.000000Z'
+                  token: >-
+                    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdCIsImp0aSI6ImJiMTM1YWQ5LTk1MGUtNDViZi04ZTY5LTUzMjAxMGNmNTlmYyIsImlhdCI6MTY4MDM2Njk1MC44OTIyMTksIm5iZiI6MTY4MDM2Njk1MC44OTIyMTksImV4cCI6MTY4MDM3MDU1MC44OTIyMTl9.84Usij9ZyDOvPf3_FHiS4VQEGayXjwIfE61ycg8REoc
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 0
+                data:
+                  first_name:
+                    - The first name field is required.
+                  last_name:
+                    - The last name field is required.
+                  password:
+                    - The password field must be at least 8 characters.
+                    - The password field confirmation does not match.
+                  password_confirmation:
+                    - The password confirmation field is required.
+                  avatar:
+                    - The avatar field is required.
+                  address:
+                    - The address field is required.
+                  phone_number:
+                    - The phone number field is required.
+                error: The first name field is required.
+                errors: [ ]
+                trace: [ ]
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/forgot-password:
+    post:
+      tags:
+        - user
+      summary: Creates a token to reset a user password
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: (Required) User email
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  reset_token: >-
+                    90e56a01cd3af8dcf7430f5e4d646024bc128c045a5681a9a2e09fe20752260d
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/reset-password-token:
+    post:
+      tags:
+        - user
+      summary: Reset a user password with the a token
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: (Required) User reset token
+                  example: commodo in Ut
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: Duis deserunt
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: aliquip laborum commodo ad
+                password_confirmation:
+                  type: string
+                  description: (Required) User password
+                  example: sed ex pariatur
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data: [ ]
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/login:
+    post:
+      tags:
+        - admin
+      summary: Login an Admin account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: (Required) Admin email
+                  example: fugiat amet
+                password:
+                  type: string
+                  description: (Required) Admin password
+                  example: consequat elit ut eu
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  token: >-
+                    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdCIsImp0aSI6IjNkMzYyNGQwLTAxZWQtNDRiZi04YWMzLTYwNTU2MjE3Yjk4ZCIsImlhdCI6MTY4MDM2Nzc5OS44NTg4NTgsIm5iZiI6MTY4MDM2Nzc5OS44NTg4NTgsImV4cCI6MTY4MDM3MTM5OS44NTg4NTh9.2eHLFSXc_ydKHTNgulz9XkCwu9pr3ADBoz7UPXg9PCc
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/logout:
+    get:
+      tags:
+        - admin
+      summary: Logout an Admin account
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/create:
+    post:
+      tags:
+        - admin
+      summary: Create an Admin account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: (Required) User firstname
+                  example: 'Buckhill '
+                last_name:
+                  type: string
+                  description: (Required) User lastname
+                  example: petshop
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: admin@buckhill.co.uk
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: password
+                password_confirmation:
+                  type: string
+                  description: (Required) User password
+                  example: password
+                avatar:
+                  type: string
+                  description: (Required) Avatar image UUID
+                  example: a6190911-0e04-4411-929e-a646b27ba96
+                address:
+                  type: string
+                  description: (Required) User main address
+                  example: in
+                phone_number:
+                  type: integer
+                  description: (Required) User main phone number
+                  example: '0901076938779990'
+                marketing:
+                  type: string
+                  description: User marketing preferences
+                  example: sunt do
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: nginx/1.23.3
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.1.15
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            Date:
+              schema:
+                type: string
+                example: Sat, 01 Apr 2023 16:41:16 GMT
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: '60'
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+                example: '58'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Encoding:
+              schema:
+                type: string
+                example: gzip
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  first_name: Buckhill
+                  last_name: petshop
+                  email: admin@buckhill.co.uk
+                  phone_number: '080100000000'
+                  address: Nigeria
+                  avatar: 1ca5b2b0-b255-47bd-be17-75dd90d39430
+                  uuid: 3d3624d0-01ed-44bf-8ac3-60556217b98d
+                  updated_at: '2023-04-01T16:41:16.000000Z'
+                  created_at: '2023-04-01T16:41:16.000000Z'
+                  token: >-
+                    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdCIsImp0aSI6IjNkMzYyNGQwLTAxZWQtNDRiZi04YWMzLTYwNTU2MjE3Yjk4ZCIsImlhdCI6MTY4MDM2NzI3Ni44Mjg5NzcsIm5iZiI6MTY4MDM2NzI3Ni44Mjg5NzcsImV4cCI6MTY4MDM3MDg3Ni44Mjg5Nzd9.9Yw8hbhWyT1Zxi5w7nhW7YDwHLTKrlN_wN9FQuJIZoA
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/user-listing:
+    get:
+      tags:
+        - admin
+      summary: List all users
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '2724863'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '2724863'
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: desc
+          in: query
+          schema:
+            type: boolean
+          example: 'true'
+        - name: first_name
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: email
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: phone
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: address
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: created_at
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: marketing
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  current_page: 1
+                  data:
+                    - uuid: ab755365-6352-4179-a0ce-e507d40bbfcd
+                      first_name: Alvena
+                      last_name: Bergstrom
+                      email: fisher.rick@example.com
+                      email_verified_at: '2023-03-31T00:49:43.000000Z'
+                      avatar: bfb73fab-5417-33a7-8a96-aca721c80b4d
+                      address: |-
+                        1537 Pat Square
+                        Ethelborough, DE 05105-9523
+                      phone_number: 520-416-1579
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: 663bac08-0704-4c77-88da-68a706567f18
+                      first_name: Assunta
+                      last_name: Schneider
+                      email: lemke.jessy@example.org
+                      email_verified_at: '2023-03-31T00:49:44.000000Z'
+                      avatar: 5f1eacfb-bba5-3473-aed0-baa2ed4326c0
+                      address: |-
+                        1280 Nona Island
+                        East Jaspermouth, AZ 07698-0344
+                      phone_number: 1-805-816-5694
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: 966435be-0b07-4846-bd10-ba4e544d9179
+                      first_name: Cletus
+                      last_name: Johnson
+                      email: guido.monahan@example.org
+                      email_verified_at: '2023-03-31T00:49:44.000000Z'
+                      avatar: 9b7ebcbf-a2a2-3ab9-9e2b-8f3768378df2
+                      address: |-
+                        257 Obie Loaf
+                        O'Konbury, NJ 47931-9013
+                      phone_number: 616.248.4080
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: c7bcf71e-4823-4791-8d71-8e1ee564d519
+                      first_name: Kavon
+                      last_name: Fritsch
+                      email: alfreda92@example.org
+                      email_verified_at: '2023-03-31T00:49:44.000000Z'
+                      avatar: 0cf5f5f0-0a6a-3f4d-9f7f-b78efbc07cc6
+                      address: |-
+                        575 Forest Walk
+                        North Shaina, CT 71600-8309
+                      phone_number: +1-765-860-7089
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: 61bf78cb-44e6-4bc0-aea6-af477f9b0721
+                      first_name: Maritza
+                      last_name: Zulauf
+                      email: towne.elizabeth@example.net
+                      email_verified_at: '2023-03-31T00:49:44.000000Z'
+                      avatar: 2d3e4929-61e2-3720-b927-dc075fc37f98
+                      address: |-
+                        2611 Frankie Court
+                        Leonorland, IL 99768-0175
+                      phone_number: 463.283.0062
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: bcab7f3e-218e-4573-a620-56e1186aa802
+                      first_name: May
+                      last_name: Lehner
+                      email: west.thurman@example.org
+                      email_verified_at: '2023-03-31T00:49:44.000000Z'
+                      avatar: 4b673c83-7aff-3ca9-92d7-b9974f650179
+                      address: |-
+                        5881 Daniel Green
+                        Lake Eloisa, ME 94528
+                      phone_number: +1-979-904-1811
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: 77ce7ecf-9f56-4c08-a967-9fdd6ca65ec1
+                      first_name: Piper
+                      last_name: Lesch
+                      email: rschmeler@example.net
+                      email_verified_at: '2023-03-31T00:49:44.000000Z'
+                      avatar: b7f07f09-7343-33fc-99b4-3c44856b1711
+                      address: |-
+                        37387 Neal Trail
+                        Watsicaberg, IL 99915
+                      phone_number: 843.752.5209
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: 76d1303c-e75e-4054-8d12-09fb10d24cfe
+                      first_name: Rahul
+                      last_name: Leffler
+                      email: boehm.jerod@example.com
+                      email_verified_at: '2023-03-31T00:49:43.000000Z'
+                      avatar: c4283eae-0295-355d-8776-47c749fdb4c2
+                      address: |-
+                        6187 Murazik Brooks Apt. 923
+                        North Cristopher, WI 13301-3264
+                      phone_number: +1.973.287.1079
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: 5749987b-e96b-41a5-81b5-345be400fce9
+                      first_name: Simone
+                      last_name: Herman
+                      email: ltremblay@example.com
+                      email_verified_at: '2023-03-31T00:49:44.000000Z'
+                      avatar: 6e5f7db1-691d-3426-a2ca-a6276a852a59
+                      address: |-
+                        845 Bethel Crossroad
+                        Schneiderberg, UT 02948-9993
+                      phone_number: '+15419808700'
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                    - uuid: af5c22a6-ff3e-434b-8528-7a73c97933cc
+                      first_name: Stuart
+                      last_name: Rosenbaum
+                      email: wintheiser.claudie@example.com
+                      email_verified_at: '2023-03-31T00:49:44.000000Z'
+                      avatar: 4502442f-f68b-3768-882c-2ee5584219e6
+                      address: |-
+                        2608 Stamm Place
+                        North Suzannehaven, TN 20955-9433
+                      phone_number: 781.217.3092
+                      last_login_at: null
+                      deleted_at: null
+                      created_at: '2023-03-31T00:49:44.000000Z'
+                      updated_at: '2023-03-31T00:49:44.000000Z'
+                  first_page_url: https://petshop.test/api/v1/admin/user-listing?page=1
+                  from: 1
+                  last_page: 1
+                  last_page_url: https://petshop.test/api/v1/admin/user-listing?page=1
+                  links:
+                    - url: null
+                      label: '&laquo; Previous'
+                      active: false
+                    - url: https://petshop.test/api/v1/admin/user-listing?page=1
+                      label: '1'
+                      active: true
+                    - url: null
+                      label: Next &raquo;
+                      active: false
+                  next_page_url: null
+                  path: https://petshop.test/api/v1/admin/user-listing
+                  per_page: 10
+                  prev_page_url: null
+                  to: 10
+                  total: 10
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/user-edit/{uuid}:
+    put:
+      tags:
+        - admin
+      summary: Edit a User account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: (Required) User firstname
+                  example: sed fugiat ut voluptate
+                last_name:
+                  type: string
+                  description: (Required) User lastname
+                  example: volupt
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: olwewsssdsddsdsdew90a@gmail.com
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: password
+                password_confirmation:
+                  type: string
+                  description: (Required) User password
+                  example: password
+                address:
+                  type: string
+                  description: (Required) User main address
+                  example: in officia
+                phone_number:
+                  type: string
+                  description: (Required) User main phone number
+                  example: 901212819267wewesdsdsdsdsdsdsd
+                avatar:
+                  type: string
+                  description: Avatar image UUID
+                  example: proident aliquaaaaa
+                is_marketing:
+                  type: string
+                  description: User marketing preferences
+                  example: 'no'
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: f46ca41f-9498-45c7-a397-d055ac15439e
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  uuid: 2bd26f4d-108f-4ac2-8b52-54678038c954
+                  first_name: sed fugiat ut voluptate
+                  last_name: volupt
+                  email: lowe.roderick@example.net
+                  email_verified_at: '2023-04-01T05:00:56.000000Z'
+                  avatar: proident aliquaaaaa
+                  address: in officia
+                  phone_number: 1-931-218-9983
+                  last_login_at: null
+                  deleted_at: null
+                  created_at: '2023-04-01T05:00:57.000000Z'
+                  updated_at: '2023-04-01T17:00:54.000000Z'
+                error: null
+                errors: [ ]
+                extra: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/user-delete/{uuid}:
+    delete:
+      tags:
+        - admin
+      summary: Delete a User account
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: f46ca41f-9498-45c7-a397-d055ac15439e
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data: [ ]
+                error: null
+                errors: [ ]
+                trace: [ ]
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''

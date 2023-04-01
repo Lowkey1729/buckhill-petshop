@@ -20,11 +20,11 @@ trait Login
     {
         $user = User::query()->where('email', $data['email'])->first();
         if (!$user || !Hash::check($data['password'], $user->password)) {
-            $this->httpResponseException('The provided credentials are incorrect.');
+            $this->httpResponseException('The provided credentials are incorrect.', 401);
         }
 
         if (!$user?->hasVerifiedEmail()) {
-            $this->httpResponseException('Email has not been verified.');
+            $this->httpResponseException('Email has not been verified.', 401);
         }
         match (true) {
             \request()->routeIs('admin.login') => $this->allowOnlyAdmins($user),
@@ -36,16 +36,16 @@ trait Login
     protected function allowOnlyAdmins(User|null $user): void
     {
         if (!$user?->is_admin) {
-            $this->httpResponseException('You do not have the permission to access this resource');
+            $this->httpResponseException('You do not have the permission to access this resource', 403);
         }
     }
 
-    protected function httpResponseException(string $message): void
+    protected function httpResponseException(string $message, int $httpStatusCode): void
     {
         throw new HttpResponseException(
             ApiResponse::failed(
                 $message,
-                httpStatusCode: 401
+                httpStatusCode: $httpStatusCode
             )
         );
     }
