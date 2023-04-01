@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use App\Services\Traits\Auth\ValidationError;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     use ValidationError;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,22 +23,13 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return match (true) {
-            $this->routeIs('user.edit-user') => $this->editOrRegisterRules(),
-            default => []
-        };
-    }
-
-
-    protected function editOrRegisterRules(): array
-    {
         return [
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'string', 'email:rfc', 'unique:users', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required'],
-            'avatar' => ['nullable', 'string'],
+            'avatar' => ['required', 'string'],
             'address' => ['required', 'string'],
             'phone_number' => ['required', 'unique:users'],
             'is_marketing' => ['nullable', 'bool'],

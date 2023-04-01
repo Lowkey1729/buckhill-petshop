@@ -12,12 +12,6 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        User::factory(1)->create();
-    }
-
     /**
      * @test
      */

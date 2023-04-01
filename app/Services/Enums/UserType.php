@@ -8,7 +8,7 @@ use Spatie\Enum\Enum;
  * @method static self user()
  * @method static self admin()
  * */
-class UserType extends Enum
+final class UserType extends Enum
 {
     public static function values(): array
     {

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\APIs;
+namespace App\Http\Controllers\APIs\V1;
 
-use App\Exceptions\Product as ProductException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product as ProductModel;
@@ -11,6 +10,7 @@ use App\Services\Helpers\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use App\Exceptions\ProductError;
 
 class ProductController extends Controller
 {
@@ -26,7 +26,7 @@ class ProductController extends Controller
         } catch (Exception $exception) {
             Log::error($exception);
             return ApiResponse::failed(
-                "An unexpected error was encountered.",
+                'An unexpected error was encountered.',
                 httpStatusCode: 500
             );
         }
@@ -43,7 +43,7 @@ class ProductController extends Controller
     {
         try {
             $product = $action->updateProduct($productRequest, $uuid);
-        } catch (ProductException $exception) {
+        } catch (ProductError $exception) {
             return ApiResponse::failed(
                 $exception->getMessage(),
                 httpStatusCode: $exception->getCode()
@@ -61,7 +61,7 @@ class ProductController extends Controller
     {
         try {
             $action->deleteProduct($uuid);
-        } catch (ProductException  $exception) {
+        } catch (ProductError  $exception) {
             return ApiResponse::failed(
                 $exception->getMessage(),
                 httpStatusCode: $exception->getCode()
@@ -91,7 +91,7 @@ class ProductController extends Controller
     {
         try {
             $product = $action->fetchProduct($uuid);
-        } catch (ProductException  $exception) {
+        } catch (ProductError  $exception) {
             return ApiResponse::failed(
                 $exception->getMessage(),
                 httpStatusCode: $exception->getCode()

@@ -1,73 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\APIs;
+namespace App\Http\Controllers\APIs\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use App\Models\User;
-use App\Services\Enums\UserType;
 use App\Services\Helpers\ApiResponse;
 use App\Services\ModelFilters\UserFilters\FilterUser;
-use App\Services\Traits\Auth\Login as LoginTrait;
-use App\Services\Traits\Auth\Register as RegisterTrait;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
-    use LoginTrait;
-    use RegisterTrait;
-
-    /**
-     * This method handles the authentication of the user
-     * @param AdminRequest $request
-     * @return JsonResponse
-     */
-    public function login(AdminRequest $request): JsonResponse
-    {
-        $data = $request->all();
-        $this->failedAuthentication($data);
-
-        if (!$this->user->is_admin) {
-            return ApiResponse::failed(
-                'You do not have the permission to access this resource',
-                httpStatusCode: 403
-            );
-        }
-
-        try {
-            $token = $this->user->createToken(sprintf('%s token', $this->user->email));
-        } catch (\Exception $exception) {
-            Log::error($exception);
-
-            return ApiResponse::failed('An unexpected error was encountered.', httpStatusCode: 500);
-        }
-
-        return ApiResponse::success(['token' => $token->getPlainTextToken()]);
-    }
-
-    /**
-     * This handles the registration of new admin users
-     * @param AdminRequest $request
-     * @return JsonResponse
-     */
-    public function createAdmin(AdminRequest $request): JsonResponse
-    {
-        $data = $request->all();
-        $user = $this->createUser($data);
-        $user->update(['is_admin' => UserType::admin()->value]);
-        try {
-            $token = $user->createToken(sprintf('%s token', $user->email));
-        } catch (\Exception $exception) {
-            Log::error($exception);
-
-            return ApiResponse::failed('An unexpected error was encountered.', httpStatusCode: 500);
-        }
-        $user['token'] = $token->getPlainTextToken();
-
-        return ApiResponse::success($user);
-    }
-
     /**
      * This handles the updating of existing users' details
      * @param AdminRequest $request

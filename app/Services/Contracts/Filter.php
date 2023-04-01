@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Services\ModelFilters;
+namespace App\Services\Contracts;
 
 use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
-use Illuminate\Database\Eloquent\Builder;
 
 interface Filter
 {

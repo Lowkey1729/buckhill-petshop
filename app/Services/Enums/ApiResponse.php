@@ -8,7 +8,7 @@ use Spatie\Enum\Enum;
  * @method static self success()
  * @method static self failed()
  * */
-class ApiResponse extends Enum
+final class ApiResponse extends Enum
 {
     public static function values(): array
     {

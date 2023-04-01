@@ -9,6 +9,6 @@ use Spatie\Enum\Enum;
  * @method static self cash_on_delivery()
  * @method static self bank_transfer()
  */
-class PaymentType extends Enum
+final class PaymentType extends Enum
 {
 }

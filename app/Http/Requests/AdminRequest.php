@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Services\Helpers\ApiResponse;
-use Illuminate\Contracts\Validation\Validator;
+use App\Services\Traits\Auth\ValidationError;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AdminRequest extends FormRequest
 {
+    use ValidationError;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -21,31 +21,6 @@ class AdminRequest extends FormRequest
      * Get the validation rules that apply to the request.
      */
     public function rules(): array
-    {
-        return match (true) {
-            $this->routeIs('admin.login'), => $this->loginRules(),
-            $this->routeIs('admin.create') => $this->createAdminRules(),
-            $this->routeIs('admin.edit-user') => $this->updateUserRules(),
-            default => []
-        };
-    }
-
-    protected function createAdminRules(): array
-    {
-        return [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'email' => ['required', 'string', 'email:rfc', 'unique:users', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required'],
-            'avatar' => ['required', 'string'],
-            'address' => ['required', 'string'],
-            'phone_number' => ['required', 'unique:users'],
-            'is_marketing' => ['required', 'bool'],
-        ];
-    }
-
-    protected function updateUserRules(): array
     {
         return [
             'first_name' => ['nullable'],
@@ -60,27 +35,6 @@ class AdminRequest extends FormRequest
         ];
     }
 
-    protected function loginRules(): array
-    {
-        return [
-            'email' => ['required', 'string', 'email:rfc', 'max:255'],
-            'password' => ['required', 'string', 'min:8']
-        ];
-    }
-
-    /**
-     * @throws HttpResponseException
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(
-            ApiResponse::failed(
-                $validator->errors()->first(),
-                $validator->errors()->toArray(),
-                httpStatusCode: 422
-            )
-        );
-    }
 
     /**
      * Prepare inputs for validation.

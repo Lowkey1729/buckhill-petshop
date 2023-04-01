@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
  * @property string $title
  * @property float $price
  * @property string $description
- * @property mixed $metadata
+ * @property array $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at

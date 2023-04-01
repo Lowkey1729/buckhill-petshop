@@ -5,7 +5,7 @@ namespace App\Services\Helpers;
 use App\Services\Enums\ApiResponse as ApiResponseEnum;
 use Illuminate\Http\JsonResponse;
 
-class ApiResponse
+final class ApiResponse
 {
     public static function success(
         array|object $data = [],

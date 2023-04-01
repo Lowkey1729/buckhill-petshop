@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $uuid
  * @property string $content
- * @property mixed|null $metadata
+ * @property array|null $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *

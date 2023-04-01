@@ -2,8 +2,8 @@
 
 namespace App\Services\ModelFilters\ProductFilters\Filters;
 
+use App\Services\Contracts\Filter;
 use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
-use App\Services\ModelFilters\Filter;
 
 final class Brand implements Filter
 {

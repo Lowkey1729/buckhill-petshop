@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Services\Helpers\ApiResponse;
-use Illuminate\Contracts\Validation\Validator;
+use App\Services\Traits\Auth\ValidationError;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProductRequest extends FormRequest
 {
+    use ValidationError;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -54,20 +54,5 @@ class ProductRequest extends FormRequest
             'image' => ['nullable', 'uuid'],
 
         ];
-    }
-
-
-    /**
-     * @throws HttpResponseException
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(
-            ApiResponse::failed(
-                $validator->errors()->first(),
-                $validator->errors()->toArray(),
-                httpStatusCode: 422
-            )
-        );
     }
 }

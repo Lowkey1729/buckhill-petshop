@@ -2,7 +2,7 @@
 
 namespace App\Services\Actions;
 
-use App\Exceptions\Product as ProductException;
+use App\Exceptions\ProductError;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product as ProductModel;
 use App\Services\ModelFilters\ProductFilters\FilterProduct;
@@ -37,13 +37,13 @@ class Product
      * @param ProductRequest $request
      * @param string $uuid
      * @return Builder<ProductModel>|ProductModel
-     * @throws ProductException
+     * @throws ProductError
      */
     public function updateProduct(ProductRequest $request, string $uuid): Builder|ProductModel
     {
         $product = ProductModel::whereUuid($uuid)->first();
         if (!$product) {
-            throw new ProductException('Product not found', 404);
+            throw new ProductError('Product not found', 404);
         }
 
         $data = $request->all();
@@ -69,13 +69,13 @@ class Product
     /**
      * @param string $uuid
      * @return void
-     * @throws ProductException
+     * @throws ProductError
      */
     public function deleteProduct(string $uuid): void
     {
         $product = ProductModel::whereUuid($uuid)->first();
         if (!$product) {
-            throw new ProductException('Product not found', 404);
+            throw new ProductError('Product not found', 404);
         }
         try {
             $product->delete();
@@ -99,13 +99,13 @@ class Product
     /**
      * @param string $uuid
      * @return ProductModel
-     * @throws ProductException
+     * @throws ProductError
      */
     public function fetchProduct(string $uuid): ProductModel
     {
         $product = ProductModel::whereUuid($uuid)->first();
         if (!$product) {
-            throw new ProductException('Product not found', 404);
+            throw new ProductError('Product not found', 404);
         }
         return $product;
     }
@@ -113,12 +113,12 @@ class Product
     /**
      * @param Exception $exception
      * @return void
-     * @throws ProductException
+     * @throws ProductError
      */
     protected function logError(Exception $exception): void
     {
         Log::error($exception);
-        throw new ProductException('An unexpected error was encountered', 500);
+        throw new ProductError('An unexpected error was encountered', 500);
     }
 
     protected function getMetaData(ProductRequest $request, ?ProductModel $product = null): array

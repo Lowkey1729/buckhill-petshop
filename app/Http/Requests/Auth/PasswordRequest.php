@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use App\Services\Traits\Auth\ValidationError;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class PasswordRequest extends FormRequest
 {
     use ValidationError;
 
@@ -25,24 +25,26 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return match (true) {
-            $this->routeIs('user.edit-user') => $this->editOrRegisterRules(),
+            $this->routeIs('user.reset-password-token') => $this->resetPasswordTokenRules(),
+            $this->routeIs('user.forgot-password') => $this->forgotPasswordRules(),
             default => []
         };
     }
 
-
-    protected function editOrRegisterRules(): array
+    protected function resetPasswordTokenRules(): array
     {
         return [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'email' => ['required', 'string', 'email:rfc', 'unique:users', 'max:255'],
+            'token' => ['required'],
+            'email' => ['required', 'string', 'email:rfc', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required'],
-            'avatar' => ['nullable', 'string'],
-            'address' => ['required', 'string'],
-            'phone_number' => ['required', 'unique:users'],
-            'is_marketing' => ['nullable', 'bool'],
+        ];
+    }
+
+    protected function forgotPasswordRules(): array
+    {
+        return [
+            'email' => ['required', 'string', 'email:rfc', 'max:255'],
         ];
     }
 }

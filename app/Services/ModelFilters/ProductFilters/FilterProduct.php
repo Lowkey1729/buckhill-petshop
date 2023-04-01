@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Services\ModelFilters\FilterModel;
 use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 
-final class FilterProduct extends FilterModel
+class FilterProduct extends FilterModel
 {
     /**
      * The first argument passed is from the request fields.

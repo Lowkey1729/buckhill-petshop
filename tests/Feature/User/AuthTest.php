@@ -39,9 +39,9 @@ class AuthTest extends TestCase
      */
     public function it_can_generate_token_for_only_users(): void
     {
-        $user = User::factory()->create();
+        $user = User::query()->first();
         $this->json('POST', route('user.login'), [
-            'email' => $user->email,
+            'email' => $user?->email,
             'password' => "password",
         ])->assertStatus(200);
     }

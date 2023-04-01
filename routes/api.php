@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\APIs\AdminController;
-use App\Http\Controllers\APIs\ProductController;
-use App\Http\Controllers\APIs\UserController;
+use App\Http\Controllers\APIs\V1\AdminController;
+use App\Http\Controllers\APIs\V1\Auth\LoginController;
+use App\Http\Controllers\APIs\V1\Auth\PasswordController;
+use App\Http\Controllers\APIs\V1\Auth\RegisterController;
+use App\Http\Controllers\APIs\V1\ProductController;
+use App\Http\Controllers\APIs\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,30 +21,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function () {
     Route::prefix('admin')->group(function () {
-        Route::post('/login', [AdminController::class, 'login'])
+        Route::post('/login', LoginController::class)
             ->name('admin.login');
 
-        Route::post('/create', [AdminController::class, 'createAdmin'])
-            ->name('admin.create');
+        Route::post(
+            '/create',
+            RegisterController::class
+        )->name('admin.create');
     });
 
-    Route::post('/login', [UserController::class, 'login'])
+    Route::post('/login', LoginController::class)
         ->name('user.login');
 
     Route::post(
         '/register',
-        [
-            UserController::class,
-            'register'
-        ]
-    )
-        ->name('user.register');
+        RegisterController::class,
+    )->name('user.register');
 
     Route::prefix('user')->group(function () {
         Route::post(
             'forgot-password',
             [
-                UserController::class,
+                PasswordController::class,
                 'forgotPassword'
             ]
         )
@@ -50,13 +51,12 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post(
             'reset-password-token',
             [
-                UserController::class,
+                PasswordController::class,
                 'resetPasswordToken'
             ]
         )
             ->name('user.reset-password-token');
     });
-
 
     Route::middleware('auth:jwt')
         ->group(function () {

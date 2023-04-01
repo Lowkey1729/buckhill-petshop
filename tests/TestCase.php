@@ -27,10 +27,10 @@ abstract class TestCase extends BaseTestCase
      */
     public function getAdminAccessToken(): string
     {
-        $user = User::factory()->create();
-        $user->update(['is_admin' => UserType::admin()->value]);
+        $this->user = User::query()->first();
+        $this->user?->update(['is_admin' => UserType::admin()->value]);
         $response = $this->json('POST', route('admin.login'), [
-            'email' => $user->email,
+            'email' => $this->user?->email,
             'password' => "password",
         ])->decodeResponseJson();
 
@@ -42,9 +42,9 @@ abstract class TestCase extends BaseTestCase
      */
     public function getUserAccessToken(): string
     {
-        $this->user = User::factory()->create();
+        $this->user = User::query()->first();
         $response = $this->json('POST', route('user.login'), [
-            'email' => $this->user->email,
+            'email' => $this->user?->email,
             'password' => "password",
         ]);
 
