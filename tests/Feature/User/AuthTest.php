@@ -28,7 +28,7 @@ class AuthTest extends TestCase
      */
     public function it_can_check_if_credentials_are_correct(): void
     {
-        $this->json('POST', route('admin.login'), [
+        $this->json('POST', route('user.login'), [
             'email' => 'olarewajumojeed9@gmail',
             'password' => 'olarewaju9',
         ])->assertStatus(401);

@@ -30,6 +30,7 @@ trait Register
             'address' => $data['address'],
             'is_marketing' => isset($data['is_marketing']) ? 1 : 0,
             'avatar' => $data['avatar'] ?? null,
+            'email_verified_at' => now()
         ];
     }
 }

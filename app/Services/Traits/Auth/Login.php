@@ -45,7 +45,7 @@ trait Login
         throw new HttpResponseException(
             ApiResponse::failed(
                 $message,
-                httpStatusCode: 403
+                httpStatusCode: 401
             )
         );
     }

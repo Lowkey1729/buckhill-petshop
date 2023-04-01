@@ -22,7 +22,7 @@ class Register
         $data = $request->all();
         $user = $this->createUser($data);
         match (true) {
-            request()->routeIs('admin.login') => $user
+            request()->routeIs('admin.create') => $user
                 ->update(['is_admin' => UserType::admin()->value]),
             default => null
         };

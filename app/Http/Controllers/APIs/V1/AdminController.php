@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\APIs\V1;
 
+use App\Exceptions\UserError;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
-use App\Models\User;
+use App\Services\Actions\Admin;
 use App\Services\Helpers\ApiResponse;
-use App\Services\ModelFilters\UserFilters\FilterUser;
 use Illuminate\Http\JsonResponse;
 
 class AdminController extends Controller
 {
+    public function __construct(protected readonly Admin $action)
+    {
+    }
+
     /**
      * This handles the updating of existing users' details
      * @param AdminRequest $request
@@ -19,19 +23,15 @@ class AdminController extends Controller
      */
     public function editUser(AdminRequest $request, string $uuid): JsonResponse
     {
-        $user = User::whereUuid($uuid)->first();
-        if (!$user) {
-            return ApiResponse::failed('User not found', httpStatusCode: 404);
+        try {
+            $user = $this->action->updateUserDetails($request, $uuid);
+            return ApiResponse::success($user);
+        } catch (UserError $exception) {
+            return ApiResponse::failed(
+                $exception->getMessage(),
+                httpStatusCode: $exception->getCode()
+            );
         }
-        $user->update(
-            array_filter(
-                $request->all(),
-                function ($x) {
-                    return !is_null($x);
-                }
-            )
-        );
-        return ApiResponse::success($user);
     }
 
     /**
@@ -42,28 +42,26 @@ class AdminController extends Controller
      */
     public function userListing(AdminRequest $request): JsonResponse
     {
-        $data = array_filter($request->all(), 'strlen');
-        $users = FilterUser::apply($data)
-            ->latest()
-            ->paginate($request->limit ?? 10);
-
+        $users = $this->action->displayAllUsers($request);
         return ApiResponse::success($users);
     }
 
     /**
      * This handles the soft deleting of existing users
-     * @param AdminRequest $request
+     *
      * @param string $uuid
      * @return JsonResponse
      */
-    public function deleteUser(AdminRequest $request, string $uuid): JsonResponse
+    public function deleteUser(string $uuid): JsonResponse
     {
-        $user = User::whereUuid($uuid)->first();
-        if (!$user) {
-            return ApiResponse::failed('User not found', httpStatusCode: 404);
+        try {
+            $this->action->deleteUser($uuid);
+        } catch (UserError $exception) {
+            return ApiResponse::failed(
+                $exception->getMessage(),
+                httpStatusCode: $exception->getCode()
+            );
         }
-        $user->delete();
-        request()->user()?->deleteAccessToken();
         return ApiResponse::success();
     }
 
@@ -75,7 +73,7 @@ class AdminController extends Controller
      */
     public function logout(): JsonResponse
     {
-        request()->user()?->deleteAccessToken();
+        $this->action->logAdminOut();
         return ApiResponse::success();
     }
 }

@@ -22,6 +22,14 @@ class AdminRequest extends FormRequest
      */
     public function rules(): array
     {
+        return match (true) {
+            $this->routeIs('admin.edit-user') => $this->updateUserDetailsRules(),
+            default => []
+        };
+    }
+
+    protected function updateUserDetailsRules(): array
+    {
         return [
             'first_name' => ['nullable'],
             'last_name' => ['nullable'],
