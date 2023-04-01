@@ -1,0 +1,1709 @@
+openapi: 3.0.0
+info:
+  title: Pet Shop API - Swagger Documentation
+  description: >
+
+    <p>This task requires me to create an API that provides the necessary endpoints and HTTP request methods
+    to satisfy the needs of the FE team for them to be able to build the UI.</p>
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: [ ]
+tags:
+  - name: api/v1
+  - name: api/v1 > product
+  - name: api/v1 > product > {uuid}
+  - name: api/v1 > user
+  - name: api/v1 > admin
+paths:
+  /api/v1/product/{uuid}:
+    put:
+      tags:
+        - api/v1 > product > {uuid}
+      summary: Update an existing product
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                category_uuid:
+                  type: string
+                  description: (Required) Category UUID
+                  example: 64829884-37e6-4838-bbe7-e0864de59a69
+                title:
+                  type: string
+                  description: (Required) Product title
+                  example: in labore Ut
+                price:
+                  type: integer
+                  description: (Required) Product price
+                  example: '90123'
+                description:
+                  type: string
+                  description: (Required) Product description
+                  example: sit
+                image:
+                  type: string
+                  description: (Required) Product metadata
+                  example: 35776871-e8a3-499a-9fd5-decbbf9ac336
+                brand:
+                  type: string
+                  description: (Required) Product metadata
+                  example: Ut sint
+                metadata:
+                  type: string
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: 500b1738-2e6e-4975-a8d1-ac8634c731a0
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+    delete:
+      tags:
+        - api/v1 > product > {uuid}
+      summary: delete an existing product
+      parameters:
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: velit esse ullamco
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+    get:
+      tags:
+        - api/v1 > product > {uuid}
+      summary: Fetch a product
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: velit esse ullamco
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/product/create:
+    post:
+      tags:
+        - api/v1 > product
+      summary: Create a new product
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                category_uuid:
+                  type: string
+                  description: (Required) Category UUID
+                  example: fugiat dolore
+                title:
+                  type: string
+                  description: (Required) Product title
+                  example: in labore Ut
+                price:
+                  type: number
+                  description: (Required) Product price
+                  example: '-54153670.31969072'
+                description:
+                  type: string
+                  description: (Required) Product description
+                  example: sit
+                image:
+                  type: string
+                  description: (Required) Product metadata
+                  example: ea minim aliqua tempor
+                brand:
+                  type: string
+                  description: (Required) Product metadata
+                  example: Ut sint
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user:
+    post:
+      tags:
+        - api/v1 > user
+      summary: View a User account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data: test
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+    delete:
+      tags:
+        - api/v1 > user
+      summary: Delete a User account
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/orders:
+    get:
+      tags:
+        - api/v1 > user
+      summary: List all orders for the user
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/edit:
+    put:
+      tags:
+        - api/v1 > user
+      summary: Update a User account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: (Required) User firstname
+                  example: sed fugiat ut voluptate
+                last_name:
+                  type: string
+                  description: (Required) User lastname
+                  example: volupt
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: commodo ut
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: Ut commodo nos
+                password_confirmation:
+                  type: string
+                  description: (Required) User password
+                  example: ali
+                address:
+                  type: string
+                  description: (Required) User main address
+                  example: in officia
+                phone_number:
+                  type: string
+                  description: (Required) User main phone number
+                  example: incididunt quis aute nulla
+                avatar:
+                  type: string
+                  description: Avatar image UUID
+                  example: proident aliqua
+                is_marketing:
+                  type: string
+                  description: User marketing preferences
+                  example: cillum Excepteur laboris
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/login:
+    post:
+      tags:
+        - api/v1 > user
+      summary: Login an User account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: proident occaecat culpa
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: 'qui '
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/logout:
+    get:
+      tags:
+        - api/v1 > user
+      summary: Logout an User account
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/register:
+    post:
+      tags:
+        - api/v1 > user
+      summary: Create a User account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: ola
+                email: mo@gmail.com
+                password: '1234'
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/forgot-password:
+    post:
+      tags:
+        - api/v1 > user
+      summary: Creates a token to reset a user password
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: (Required) User email
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/user/reset-password-token:
+    post:
+      tags:
+        - api/v1 > user
+      summary: Reset a user password with the a token
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: (Required) User reset token
+                  example: commodo in Ut
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: Duis deserunt
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: aliquip laborum commodo ad
+                password_confirmation:
+                  type: string
+                  description: (Required) User password
+                  example: sed ex pariatur
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/login:
+    post:
+      tags:
+        - api/v1 > admin
+      summary: Login an Admin account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: (Required) Admin email
+                  example: fugiat amet
+                password:
+                  type: string
+                  description: (Required) Admin password
+                  example: consequat elit ut eu
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/logout:
+    get:
+      tags:
+        - api/v1 > admin
+      summary: Logout an Admin account
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/create:
+    post:
+      tags:
+        - api/v1 > admin
+      summary: Create an Admin account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: (Required) User firstname
+                  example: id elit
+                last_name:
+                  type: string
+                  description: (Required) User lastname
+                  example: in labore repr
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: quis nulla dolor nostrud magna
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: laborum ipsum voluptate
+                password_confirmation:
+                  type: string
+                  description: (Required) User password
+                  example: commodo
+                avatar:
+                  type: string
+                  description: (Required) Avatar image UUID
+                  example: deserunt elit quis ex dolore
+                address:
+                  type: string
+                  description: (Required) User main address
+                  example: in
+                phone_number:
+                  type: string
+                  description: (Required) User main phone number
+                  example: ad quis occaecat irure
+                marketing:
+                  type: string
+                  description: User marketing preferences
+                  example: sunt do
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/user-listing:
+    get:
+      tags:
+        - api/v1 > admin
+      summary: List all users
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '2724863'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '2724863'
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: desc
+          in: query
+          schema:
+            type: boolean
+          example: 'true'
+        - name: first_name
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: email
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: phone
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: address
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: created_at
+          in: query
+          schema:
+            type: string
+          example: velit esse ullamco
+        - name: marketing
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/user-edit/{uuid}:
+    put:
+      tags:
+        - api/v1 > admin
+      summary: Edit a User account
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: (Required) User firstname
+                  example: sed fugiat ut voluptate
+                last_name:
+                  type: string
+                  description: (Required) User lastname
+                  example: volupt
+                email:
+                  type: string
+                  description: (Required) User email
+                  example: olwewsssdsddsdsdew90a@gmail.com
+                password:
+                  type: string
+                  description: (Required) User password
+                  example: password
+                password_confirmation:
+                  type: string
+                  description: (Required) User password
+                  example: password
+                address:
+                  type: string
+                  description: (Required) User main address
+                  example: in officia
+                phone_number:
+                  type: string
+                  description: (Required) User main phone number
+                  example: 901212819267wewesdsdsdsdsdsdsd
+                avatar:
+                  type: string
+                  description: Avatar image UUID
+                  example: proident aliquaaaaa
+                is_marketing:
+                  type: string
+                  description: User marketing preferences
+                  example: 'no'
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: f46ca41f-9498-45c7-a397-d055ac15439e
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v1/admin/user-delete/{uuid}:
+    delete:
+      tags:
+        - api/v1 > admin
+      summary: Delete a User account
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: uuid
+          in: path
+          schema:
+            type: string
+          required: true
+          description: '(Required) '
+          example: f46ca41f-9498-45c7-a397-d055ac15439e
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
