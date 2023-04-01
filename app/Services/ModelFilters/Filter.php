@@ -2,7 +2,7 @@
 
 namespace App\Services\ModelFilters;
 
-use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 use Illuminate\Database\Eloquent\Builder;
 
 interface Filter
@@ -10,9 +10,9 @@ interface Filter
     /**
      * Apply a given search value to the builder instance.
      *
-     * @param Builder<User> $builder
+     * @param BuilderContract $builder
      * @param string $value
-     * @return Builder<User>
+     * @return BuilderContract
      */
-    public static function apply(Builder $builder, string $value): Builder;
+    public static function apply(BuilderContract $builder, string $value): BuilderContract;
 }

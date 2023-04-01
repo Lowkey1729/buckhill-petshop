@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Services\Enums\UserType;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Artisan;
 use Throwable;
 
 abstract class TestCase extends BaseTestCase
@@ -14,6 +15,12 @@ abstract class TestCase extends BaseTestCase
     use DatabaseMigrations;
 
     public User|null $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Artisan::call('migrate --seed');
+    }
 
     /**
      * @throws Throwable
@@ -42,14 +49,5 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         return $response['data']['token'];
-    }
-
-    /**
-     * Reset the migrations
-     */
-    public function tearDown(): void
-    {
-        $this->artisan('migrate:reset');
-        parent::tearDown();
     }
 }

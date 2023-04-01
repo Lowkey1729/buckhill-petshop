@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Services\ModelFilters\UserFilters;
+namespace App\Services\ModelFilters\ProductFilters;
 
-use App\Models\User;
+use App\Models\Product;
 use App\Services\ModelFilters\FilterModel;
 use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 
-/**
- * @template TKey of array-key
- * @template TModel
- * @template TItem
- * */
-final class FilterUser extends FilterModel
+final class FilterProduct extends FilterModel
 {
     /**
      * The first argument passed is from the request fields.
@@ -25,7 +20,7 @@ final class FilterUser extends FilterModel
     {
         $query = self::applyDecoratorFromRequest(
             $filters,
-            (new User())->newQuery(),
+            (new Product())->newQuery()->with(['category']),
             __NAMESPACE__
         );
 

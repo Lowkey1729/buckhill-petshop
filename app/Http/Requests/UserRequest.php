@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Services\Helpers\ApiResponse;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserRequest extends FormRequest
 {
@@ -69,5 +72,19 @@ class UserRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email:rfc', 'max:255'],
         ];
+    }
+
+    /**
+     * @throws HttpResponseException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            ApiResponse::failed(
+                $validator->errors()->first(),
+                $validator->errors()->toArray(),
+                httpStatusCode: 422
+            )
+        );
     }
 }

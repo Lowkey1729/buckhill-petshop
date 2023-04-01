@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\APIs\AdminController;
+use App\Http\Controllers\APIs\ProductController;
 use App\Http\Controllers\APIs\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,50 +28,160 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/login', [UserController::class, 'login'])
         ->name('user.login');
 
-    Route::post('/register', [UserController::class, 'register'])
+    Route::post(
+        '/register',
+        [
+            UserController::class,
+            'register'
+        ]
+    )
         ->name('user.register');
 
     Route::prefix('user')->group(function () {
-        Route::post('forgot-password', [UserController::class, 'forgotPassword'])
+        Route::post(
+            'forgot-password',
+            [
+                UserController::class,
+                'forgotPassword'
+            ]
+        )
             ->name('user.forgot-password');
 
-        Route::post('reset-password-token', [UserController::class, 'resetPasswordToken'])
+        Route::post(
+            'reset-password-token',
+            [
+                UserController::class,
+                'resetPasswordToken'
+            ]
+        )
             ->name('user.reset-password-token');
     });
 
 
-    Route::middleware('auth:jwt')->group(function () {
-        Route::group(['prefix' => 'admin'], function () {
-            Route::middleware('is_admin')->group(function () {
-                Route::get('logout', [AdminController::class, 'logout'])
-                    ->name('admin.logout');
+    Route::middleware('auth:jwt')
+        ->group(function () {
+            Route::group(['prefix' => 'admin'], function () {
+                Route::middleware('is_admin')
+                    ->group(function () {
+                        Route::get('logout', [AdminController::class, 'logout'])
+                            ->name('admin.logout');
 
-                Route::put('user-edit/{uuid}', [AdminController::class, 'editUser'])
-                    ->name('admin.edit-user');
+                        Route::put(
+                            'user-edit/{uuid}',
+                            [
+                                AdminController::class,
+                                'editUser'
+                            ]
+                        )
+                            ->name('admin.edit-user');
 
-                Route::get('user-listing', [AdminController::class, 'userListing'])
-                    ->name('admin.user-listing');
+                        Route::get(
+                            'user-listing',
+                            [
+                                AdminController::class,
+                                'userListing'
+                            ]
+                        )
+                            ->name('admin.user-listing');
 
-                Route::delete('user-delete/{uuid}', [AdminController::class, 'deleteUser'])
-                    ->name('admin.user-delete');
+                        Route::delete(
+                            'user-delete/{uuid}',
+                            [
+                                AdminController::class,
+                                'deleteUser'
+                            ]
+                        )
+                            ->name('admin.user-delete');
+                    });
             });
+
+            Route::prefix('user')->group(function () {
+                Route::get(
+                    '/',
+                    [
+                        UserController::class,
+                        'viewUser'
+                    ]
+                )
+                    ->name('user.view-user');
+
+                Route::delete(
+                    '/',
+                    [
+                        UserController::class,
+                        'deleteUser'
+                    ]
+                )
+                    ->name('user.delete-user');
+
+                Route::get(
+                    '/orders',
+                    [
+                        UserController::class,
+                        'orders'
+                    ]
+                )
+                    ->name('user.orders');
+
+                Route::put(
+                    'edit',
+                    [
+                        UserController::class,
+                        'editUser'
+                    ]
+                )
+                    ->name('user.edit-user');
+
+                Route::get(
+                    'logout',
+                    [
+                        UserController::class,
+                        'logout'
+                    ]
+                )
+                    ->name('user.logout');
+            });
+
+            Route::prefix('product')->group(function () {
+                Route::post(
+                    'create',
+                    [
+                        ProductController::class,
+                        'createProduct'
+                    ]
+                )->name('product.create-product');
+
+                Route::put(
+                    '{uuid}',
+                    [
+                        ProductController::class,
+                        'updateProduct'
+                    ]
+                )->name('product.update-product');
+
+                Route::delete(
+                    '{uuid}',
+                    [
+                        ProductController::class,
+                        'deleteProduct'
+                    ]
+                )->name('product.delete-product');
+
+                Route::get(
+                    '{uuid}',
+                    [
+                        ProductController::class,
+                        'fetchProduct'
+                    ]
+                )->name('product.fetch-product');
+            });
+
+            Route::get(
+                'products',
+                [
+                    ProductController::class,
+                    'fetchProducts'
+                ]
+            )->name('product.fetch-products');
         });
-
-        Route::prefix('user')->group(function () {
-            Route::get('/', [UserController::class, 'viewUser'])
-                ->name('user.view-user');
-
-            Route::delete('/', [UserController::class, 'deleteUser'])
-                ->name('user.delete-user');
-
-            Route::get('/orders', [UserController::class, 'orders'])
-                ->name('user.orders');
-
-            Route::put('edit', [UserController::class, 'editUser'])
-                ->name('user.edit-user');
-
-            Route::get('logout', [UserController::class, 'logout'])
-                ->name('user.logout');
-        });
-    });
 });
