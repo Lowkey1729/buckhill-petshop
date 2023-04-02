@@ -6,8 +6,10 @@ use App\Services\Helpers\ApiResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Psr\Log\LogLevel;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -53,7 +55,18 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $e): JsonResponse
+    public function render($request, Throwable $e): Response
+    {
+        return $this->shouldReturnJson($request, $e)
+            ? $this->handleJsonResponses($e)
+            : $this->prepareResponse($request, $e);
+    }
+
+    /**
+     * @param Throwable $e
+     * @return Response
+     */
+    protected function handleJsonResponses(Throwable $e): Response
     {
         return match (true) {
             $e instanceof MethodNotAllowedHttpException => $this->httpResponseException(
@@ -71,14 +84,17 @@ class Handler extends ExceptionHandler
             $e instanceof AuthenticationException => $this->httpResponseException(
                 'Not authenticated',
                 httpStatusCode: 401
-            )
+            ),
+            default => new Response()
         };
     }
+
 
     protected function httpResponseException(
         string $message,
         int    $httpStatusCode
-    ): JsonResponse {
+    ): JsonResponse
+    {
         return
             ApiResponse::failed(
                 $message,
