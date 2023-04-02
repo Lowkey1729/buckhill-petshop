@@ -85,7 +85,10 @@ class Handler extends ExceptionHandler
                 'Not authenticated',
                 httpStatusCode: 401
             ),
-            default => new Response()
+            default => $this->httpResponseException(
+                $e->getMessage(),
+                500
+            )
         };
     }
 

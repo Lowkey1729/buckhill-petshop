@@ -1,0 +1,7 @@
+/.github
+/.git
+/.idea
+**.env*
+**.editorconfig
+**.gitattributes
+**.gitignore

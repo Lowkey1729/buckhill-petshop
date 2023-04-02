@@ -8,7 +8,7 @@ info:
     <p>be able to build the UI.</p>
   version: 1.0.0
 servers:
-  - url: https://petshop.test
+  - url: "http://localhost:8000"
 components:
   securitySchemes:
     bearerAuth:

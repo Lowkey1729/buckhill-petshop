@@ -1,0 +1,76 @@
+version: "3.8"
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    expose:
+      - 9000
+    volumes:
+      - .:/usr/src/app
+      - ./public:/usr/src/app/public
+    depends_on:
+      - mysql
+    networks:
+      - app_network
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    volumes:
+      - ./public:/usr/src/app/public
+    ports:
+      - 8000:80
+    depends_on:
+      - app
+    environment:
+      NGINX_FPM_HOST: app
+      NGINX_ROOT: /usr/src/app/public
+    networks:
+      - app_network
+
+  mysql:
+    container_name: mysql
+    image: 'mysql/mysql-server:8.0'
+    restart: always
+    volumes:
+      - ./storage/db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+          - 3906:3306
+    networks:
+      - app_network
+
+  mysql_test:
+    container_name: mysql_test
+    image: 'mysql/mysql-server:8.0'
+    restart: always
+    volumes:
+      - ./storage/db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+      - 52000:3306
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+
+
