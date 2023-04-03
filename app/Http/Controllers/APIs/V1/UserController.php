@@ -27,7 +27,6 @@ class UserController extends Controller
         return ApiResponse::success($user);
     }
 
-
     /**
      * This displays all the current orders that belongs to
      * the authenticated user.

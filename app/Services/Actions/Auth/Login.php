@@ -4,7 +4,7 @@ namespace App\Services\Actions\Auth;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
-use App\Services\Traits\Auth\Login as LoginTrait;
+use App\Services\Concerns\Auth\Login as LoginTrait;
 use Exception;
 
 class Login

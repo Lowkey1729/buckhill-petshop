@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Services\Traits\Auth\ValidationError;
+use App\Services\Concerns\Auth\ValidationError;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AdminRequest extends FormRequest
@@ -42,7 +42,6 @@ class AdminRequest extends FormRequest
             'is_marketing' => ['nullable', 'bool'],
         ];
     }
-
 
     /**
      * Prepare inputs for validation.

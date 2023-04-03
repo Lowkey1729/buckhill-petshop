@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\APIs\V1;
 
+use App\Exceptions\ProductError;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product as ProductModel;
@@ -10,7 +11,6 @@ use App\Services\Helpers\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use App\Exceptions\ProductError;
 
 class ProductController extends Controller
 {

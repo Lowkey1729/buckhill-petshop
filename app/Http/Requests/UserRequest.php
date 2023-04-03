@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Services\Traits\Auth\ValidationError;
+use App\Services\Concerns\Auth\ValidationError;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -29,7 +29,6 @@ class UserRequest extends FormRequest
             default => []
         };
     }
-
 
     protected function editOrRegisterRules(): array
     {

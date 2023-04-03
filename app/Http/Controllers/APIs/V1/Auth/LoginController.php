@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\Actions\Auth\Login as LoginAction;
 use App\Services\Helpers\ApiResponse;
-use App\Services\Traits\Auth\Login as LoginTrait;
+use App\Services\Concerns\Auth\Login as LoginTrait;
 use Exception;
 use Illuminate\Http\JsonResponse;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Traits\Auth;
+namespace App\Services\Concerns\Auth;
 
 use App\Models\User;
 use App\Services\Helpers\ApiResponse;
@@ -19,11 +19,11 @@ trait Login
     protected function failedAuthentication(array $data): void
     {
         $user = User::query()->where('email', $data['email'])->first();
-        if (!$user || !Hash::check($data['password'], $user->password)) {
+        if (! $user || !Hash::check($data['password'], $user->password)) {
             $this->httpResponseException('The provided credentials are incorrect.', 401);
         }
 
-        if (!$user?->hasVerifiedEmail()) {
+        if (! $user?->hasVerifiedEmail()) {
             $this->httpResponseException('Email has not been verified.', 401);
         }
         match (true) {

@@ -2,18 +2,18 @@
 
 namespace App\Services\Actions;
 
+use App\Exceptions\OrderError;
 use App\Exceptions\UserError;
 use App\Http\Requests\UserRequest;
 use App\Models\Order;
 use App\Models\User as UserModel;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Exceptions\OrderError;
 
 class User
 {
     public function viewUserDetails(UserRequest $request): object
     {
-        return (object)$request->user();
+        return (object) $request->user();
     }
 
     /**

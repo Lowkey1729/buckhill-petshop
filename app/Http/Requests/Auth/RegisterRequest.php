@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Services\Traits\Auth\ValidationError;
+use App\Services\Concerns\Auth\ValidationError;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest

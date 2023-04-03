@@ -5,7 +5,7 @@ namespace App\Services\Actions\Auth;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use App\Services\Enums\UserType;
-use App\Services\Traits\Auth\Register as RegisterTrait;
+use App\Services\Concerns\Auth\Register as RegisterTrait;
 use Exception;
 
 class Register

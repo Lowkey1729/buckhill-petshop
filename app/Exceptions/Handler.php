@@ -68,33 +68,22 @@ class Handler extends ExceptionHandler
     protected function handleJsonResponses(Throwable $e): Response
     {
         return match (true) {
-            $e instanceof MethodNotAllowedHttpException => $this->httpResponseException(
-                $e->getMessage(),
-                405
-            ),
-            $e instanceof NotFoundHttpException => $this->httpResponseException(
-                'Api resource not found',
-                httpStatusCode: 404
-            ),
-            $e instanceof InvalidSignatureException => $this->httpResponseException(
-                'Invalid signature',
-                httpStatusCode: 400
-            ),
-            $e instanceof AuthenticationException => $this->httpResponseException(
-                'Not authenticated',
-                httpStatusCode: 401
-            ),
-            default => $this->httpResponseException(
-                'An unexpected error was encountered. Please, contact support',
-                500
-            )
+            $e instanceof MethodNotAllowedHttpException => $this->httpResponseException($e->getMessage(), 405),
+
+            $e instanceof NotFoundHttpException => $this->httpResponseException('Api resource not found', httpStatusCode: 404),
+
+            $e instanceof InvalidSignatureException => $this->httpResponseException('Invalid signature', httpStatusCode: 402),
+
+            $e instanceof AuthenticationException => $this->httpResponseException('Not authenticated', httpStatusCode: 401),
+
+            default => $this->httpResponseException('An unexpected error was encountered. Please, contact support', 500)
         };
     }
 
 
     protected function httpResponseException(
         string $message,
-        int    $httpStatusCode
+        int $httpStatusCode
     ): JsonResponse {
         return
             ApiResponse::failed(

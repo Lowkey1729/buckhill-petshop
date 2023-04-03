@@ -5,7 +5,7 @@ namespace App\Services\Actions\Auth;
 use App\Exceptions\PasswordError;
 use App\Http\Requests\Auth\PasswordRequest;
 use App\Models\User;
-use App\Services\Traits\Auth\Password as PasswordTrait;
+use App\Services\Concerns\Auth\Password as PasswordTrait;
 
 class Password
 {
