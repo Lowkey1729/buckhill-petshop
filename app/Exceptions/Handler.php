@@ -6,7 +6,6 @@ use App\Services\Helpers\ApiResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Psr\Log\LogLevel;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,7 +85,7 @@ class Handler extends ExceptionHandler
                 httpStatusCode: 401
             ),
             default => $this->httpResponseException(
-                $e->getMessage(),
+                'An unexpected error was encountered. Please, contact support',
                 500
             )
         };
@@ -96,8 +95,7 @@ class Handler extends ExceptionHandler
     protected function httpResponseException(
         string $message,
         int    $httpStatusCode
-    ): JsonResponse
-    {
+    ): JsonResponse {
         return
             ApiResponse::failed(
                 $message,
