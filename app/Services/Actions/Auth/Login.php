@@ -18,7 +18,7 @@ class Login
      */
     public function loginUser(LoginRequest $request): User|null
     {
-        $data = $request->all();
+        $data = $request->validated();
         $this->failedAuthentication($data);
         $user = $this->getUser();
         return $user?->createToken(sprintf('%s token', $this->user?->email));

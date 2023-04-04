@@ -2,7 +2,7 @@
 
 namespace App\Services\ModelFilters\UserFilters\Filters;
 
-use App\Services\Contracts\Filter;
+use App\Services\Contracts\ModelFilter\Filter;
 use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 use Illuminate\Support\Facades\Schema;
 

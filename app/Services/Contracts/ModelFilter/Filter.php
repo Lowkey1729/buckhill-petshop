@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace App\Services\Contracts\ModelFilter;
 
 use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 
