@@ -126,11 +126,9 @@
                                     ]
                                 },
                                 "url": {
-                                    "raw": "https://petshop.test/api/v1/product/create",
-                                    "protocol": "https",
+                                    "raw": "{{baseUrl}}/api/v1/product/create",
                                     "host": [
-                                        "petshop",
-                                        "test"
+                                        "{{baseUrl}}"
                                     ],
                                     "path": [
                                         "api",
@@ -566,11 +564,9 @@
                                     ]
                                 },
                                 "url": {
-                                    "raw": "https://petshop.test/api/v1/product/:uuid",
-                                    "protocol": "https",
+                                    "raw": "{{baseUrl}}/api/v1/product/:uuid",
                                     "host": [
-                                        "petshop",
-                                        "test"
+                                        "{{baseUrl}}"
                                     ],
                                     "path": [
                                         "api",
@@ -1581,27 +1577,14 @@
                         {
                             "name": "Unauthenticated Copy",
                             "originalRequest": {
-                                "auth": {
-                                    "type": "bearer",
-                                    "bearer": [
-                                        {
-                                            "key": "token",
-                                            "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdCIsImp0aSI6IjJiZDI2ZjRkLTEwOGYtNGFjMi04YjUyLTU0Njc4MDM4Yzk1NCIsImlhdCI6MTY4MDM2NTYzNS4zMjE5ODMsIm5iZiI6MTY4MDM2NTYzNS4zMjE5ODMsImV4cCI6MTY4MDM2OTIzNS4zMjE5ODN9.FjrRNtSRLoMIILgzjF9vHqv6V5YPhraAfN68tn6CcwE",
-                                            "type": "string"
-                                        }
-                                    ]
-                                },
-                                "method": "GET",
-                                "header": [],
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
                                     }
-                                },
+                                ],
                                 "url": {
                                     "raw": "{{baseUrl}}/api/v1/user",
                                     "host": [
@@ -1614,10 +1597,20 @@
                                     ]
                                 }
                             },
-                            "_postman_previewlanguage": "",
-                            "header": "",
+                            "status": "Unauthorized",
+                            "code": 401,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json",
+                                    "name": "Content-Type",
+                                    "description": "",
+                                    "type": "text"
+                                }
+                            ],
                             "cookie": [],
-                            "body": ""
+                            "body": "{\n    \"success\": 0,\n    \"data\": [],\n    \"error\": \"Not authenticated\",\n    \"errors\": [],\n    \"trace\": []\n}"
                         }
                     ]
                 },
@@ -6685,6 +6678,221 @@
                             ],
                             "cookie": [],
                             "body": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "file",
+            "item": [
+                {
+                    "name": "Upload File",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{bearerToken}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/file/upload",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "file",
+                                "upload"
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Upload File",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "file",
+                                            "type": "file",
+                                            "src": "/Users/macbook/Downloads/kpi_excel-Capiflex-2023-04-05 (2).csv"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/api/v1/file/upload",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "v1",
+                                        "file",
+                                        "upload"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Server",
+                                    "value": "nginx/1.23.4"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                },
+                                {
+                                    "key": "Vary",
+                                    "value": "Accept-Encoding"
+                                },
+                                {
+                                    "key": "X-Powered-By",
+                                    "value": "PHP/8.2.4"
+                                },
+                                {
+                                    "key": "Cache-Control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Wed, 05 Apr 2023 16:14:00 GMT"
+                                },
+                                {
+                                    "key": "X-RateLimit-Limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "X-RateLimit-Remaining",
+                                    "value": "59"
+                                },
+                                {
+                                    "key": "Access-Control-Allow-Origin",
+                                    "value": "*"
+                                },
+                                {
+                                    "key": "Content-Encoding",
+                                    "value": "gzip"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"success\": 1,\n    \"data\": {\n        \"name\": \"phpSFMw1N\",\n        \"size\": \"301 Byte\",\n        \"path\": \"pet-shop/opQOPzHxogAdG6klNfK7DJXfBn3dfFyd3FIIFKqZ.csv\",\n        \"type\": \"text/csv\",\n        \"uuid\": \"68d8a20e-4197-4252-ac6d-d6de89acb6cd\",\n        \"updated_at\": \"2023-04-05T16:14:00.000000Z\",\n        \"created_at\": \"2023-04-05T16:14:00.000000Z\"\n    },\n    \"error\": null,\n    \"errors\": [],\n    \"extra\": []\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Fetch File",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Fetch File",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/api/v1/file/:uuid",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "v1",
+                                        "file",
+                                        ":uuid"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "uuid",
+                                            "value": "68d8a20e-4197-4252-ac6d-d6de89acb6cd"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Server",
+                                    "value": "nginx/1.23.4"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                },
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Connection",
+                                    "value": "keep-alive"
+                                },
+                                {
+                                    "key": "Vary",
+                                    "value": "Accept-Encoding"
+                                },
+                                {
+                                    "key": "X-Powered-By",
+                                    "value": "PHP/8.2.4"
+                                },
+                                {
+                                    "key": "Cache-Control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Wed, 05 Apr 2023 16:18:26 GMT"
+                                },
+                                {
+                                    "key": "X-RateLimit-Limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "X-RateLimit-Remaining",
+                                    "value": "59"
+                                },
+                                {
+                                    "key": "Access-Control-Allow-Origin",
+                                    "value": "*"
+                                },
+                                {
+                                    "key": "Content-Encoding",
+                                    "value": "gzip"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"success\": 1,\n    \"data\": {\n        \"uuid\": \"68d8a20e-4197-4252-ac6d-d6de89acb6cd\",\n        \"name\": \"phpSFMw1N\",\n        \"path\": \"pet-shop/opQOPzHxogAdG6klNfK7DJXfBn3dfFyd3FIIFKqZ.csv\",\n        \"size\": \"301 Byte\",\n        \"type\": \"text/csv\",\n        \"created_at\": \"2023-04-05T16:14:00.000000Z\",\n        \"updated_at\": \"2023-04-05T16:14:00.000000Z\"\n    },\n    \"error\": null,\n    \"errors\": [],\n    \"extra\": []\n}"
                         }
                     ]
                 }
