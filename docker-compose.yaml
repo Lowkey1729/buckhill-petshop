@@ -45,8 +45,9 @@ services:
       MYSQL_USER: '${DB_USERNAME}'
       MYSQL_PASSWORD: '${DB_PASSWORD}'
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      PMA_HOST: mysql
     ports:
-          - 3906:3306
+          - 3306:3306
     networks:
       - app_network
 
@@ -57,14 +58,14 @@ services:
     volumes:
       - ./storage/db-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_HOST: "%"
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: 'buckhill_petshop_test_db'
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'root'
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      PMA_HOST: mysql_test
     ports:
-      - 52000:3306
+      - 3308:3308
     networks:
       - app_network
 
