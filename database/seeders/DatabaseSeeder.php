@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             FileSeeder::class,
             PostSeeder::class,
             PromotionSeeder::class,
+            AdminSeeder::class
         ]);
     }
 }
