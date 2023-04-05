@@ -76,7 +76,7 @@ class Handler extends ExceptionHandler
 
             $e instanceof AuthenticationException => $this->httpResponseException('Not authenticated', httpStatusCode: 401),
 
-            default => $this->httpResponseException('An unexpected error was encountered. Please, contact support', 500)
+            default => $this->httpResponseException($e->getMessage(), 500)
         };
     }
 

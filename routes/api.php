@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\APIs\FileController;
 use App\Http\Controllers\APIs\V1\AdminController;
 use App\Http\Controllers\APIs\V1\Auth\LoginController;
 use App\Http\Controllers\APIs\V1\Auth\PasswordController;
@@ -183,5 +184,23 @@ Route::group(['prefix' => 'v1'], function () {
                     'fetchProducts'
                 ]
             )->name('product.fetch-products');
+
+            Route::prefix('file')->group(function () {
+                Route::post(
+                    'upload',
+                    [
+                        FileController::class,
+                        'uploadFile'
+                    ]
+                )->name('file.upload-file');
+
+                Route::get(
+                    '{uuid}',
+                    [
+                        FileController::class,
+                        'getFileDetails'
+                    ]
+                )->name('file.get-file-details');
+            });
         });
 });

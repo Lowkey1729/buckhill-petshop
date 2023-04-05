@@ -48,6 +48,10 @@ class File extends Model
         'size',
     ];
 
+    protected $hidden = [
+        'id'
+    ];
+
     protected static function boot()
     {
         parent::boot();

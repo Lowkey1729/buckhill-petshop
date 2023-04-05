@@ -12,14 +12,13 @@ use Throwable;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
-    use DatabaseMigrations;
 
     public User|null $user;
 
     protected function setUp(): void
     {
         parent::setUp();
-        Artisan::call('migrate --seed');
+        $this->artisan('migrate:fresh --seed --env=testing');
     }
 
     /**
