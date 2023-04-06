@@ -42,7 +42,7 @@ class AuthTest extends TestCase
         $user = User::query()->first();
         $this->json('POST', route('user.login'), [
             'email' => $user?->email,
-            'password' => "password",
+            'password' => "userpassword",
         ])->assertStatus(200);
     }
 

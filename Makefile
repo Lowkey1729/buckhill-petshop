@@ -9,8 +9,6 @@ install:
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
 	docker compose exec app chmod -R 777 storage bootstrap/cache
-	@make fresh
-	@make test
 up:
 	docker compose up -d --remove-orphans
 build:
@@ -79,8 +77,8 @@ cache-clear:
 	docker compose exec app composer clear-cache
 	@make optimize-clear
 	docker compose exec app php artisan event:clear
-db:
-	docker compose exec db bash
+access-mysql-app:
+	docker compose exec mysql bash
 sql:
 	docker compose exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
 redis:

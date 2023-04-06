@@ -8,6 +8,7 @@ to satisfy the needs of the FE team for them to be able to build the UI.
 ## Table of Contents
 
 - [Run via Docker](#run-via-docker)
+- [Access Mysql](#access-mysql)
 - [Swagger Documentation](#swagger-documentation)
 - [Formatting](#formatting)
 - [Testing](#testing)
@@ -46,14 +47,34 @@ docker compose exec app php artisan config:cache
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan storage:link
 docker compose exec app chmod -R 777 storage bootstrap/cache
-docker compose exec app php artisan migrate:fresh --seed
-docker compose exec app php artisan test
-
 ```
 
-### localhost.
+#### localhost.
 
 http://localhost:8000 will be available to access the app.
+
+## Access Mysql
+
+To access the mysql command line on docker, run the command below.
+
+```bash
+    make access-mysql-app
+```
+
+You can then run any mysql commands there. e.g.
+
+```bash
+    mysql -u root -p
+```
+
+1. Please, Ensure you have a database created for the local database and the test database.
+   e.g. **buckhill_petshop_db** for local db and **buckhill_petshop_test_db** for test db.
+    This is to prevent out test cases from making use of our test databases.
+
+## Migrate And Seed Database
+```bash
+    php artisan migrate --seed
+```
 
 ## Swagger Documentation
 
