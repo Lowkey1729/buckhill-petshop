@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\APIs;
+namespace App\Http\Controllers\APIs\V1;
 
 use App\Exceptions\FileError;
 use App\Http\Controllers\Controller;

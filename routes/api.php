@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\APIs\FileController;
 use App\Http\Controllers\APIs\V1\AdminController;
 use App\Http\Controllers\APIs\V1\Auth\LoginController;
 use App\Http\Controllers\APIs\V1\Auth\PasswordController;
 use App\Http\Controllers\APIs\V1\Auth\RegisterController;
+use App\Http\Controllers\APIs\V1\FileController;
 use App\Http\Controllers\APIs\V1\ProductController;
 use App\Http\Controllers\APIs\V1\UserController;
 use Illuminate\Support\Facades\Route;
