@@ -64,8 +64,8 @@ class File
     protected function formatBytes(int $size, int $precision = 0): string
     {
         $unit = ['Byte', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-
-        for ($i = 0; $size >= 1024 && $i < count($unit) - 1; $i++) {
+        $countedUnit = count($unit);
+        for ($i = 0; $size >= 1024 && $i < $countedUnit - 1; $i++) {
             $size /= 1024;
         }
 
