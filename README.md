@@ -69,7 +69,7 @@ You can then run any mysql commands there. e.g.
 
 1. Please, Ensure you have a database created for the local database and the test database.
    e.g. **buckhill_petshop_db** for local db and **buckhill_petshop_test_db** for test db.
-    This is to prevent out test cases from making use of our test databases.
+    This is to prevent the test cases from making use of our local databases.
 
 ## Migrate And Seed Database
 ```bash
