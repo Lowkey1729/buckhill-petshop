@@ -23,7 +23,7 @@ class UserFactory extends Factory
             'is_admin' => $this->getPrivilege(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt('password'), // password
+            'password' => bcrypt('userpassword'), // password
             'avatar' => fake()->uuid,
             'address' => fake()->address,
             'phone_number' => fake()->phoneNumber,
@@ -36,7 +36,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
