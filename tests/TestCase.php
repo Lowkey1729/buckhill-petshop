@@ -4,9 +4,7 @@ namespace Tests;
 
 use App\Models\User;
 use App\Services\Enums\UserType;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\Artisan;
 use Throwable;
 
 abstract class TestCase extends BaseTestCase
