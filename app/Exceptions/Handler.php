@@ -85,10 +85,9 @@ class Handler extends ExceptionHandler
         string $message,
         int $httpStatusCode
     ): JsonResponse {
-        return
-            ApiResponse::failed(
-                $message,
-                httpStatusCode: $httpStatusCode
-            );
+        return ApiResponse::failed(
+            $message,
+            httpStatusCode: $httpStatusCode
+        );
     }
 }
