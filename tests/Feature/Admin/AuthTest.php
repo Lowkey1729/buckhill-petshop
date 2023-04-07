@@ -52,8 +52,9 @@ class AuthTest extends TestCase
      */
     public function it_can_login_admin(): void
     {
-        $user = User::query()->first();
-        $user?->update(['is_admin' => UserType::admin()->value]);
+        $user = User::query()
+            ->where('is_admin', UserType::admin()->value)
+            ->first();
         $response = $this->json('POST', route('admin.login'), [
             'email' => $user?->email,
             'password' => "userpassword",
@@ -69,8 +70,9 @@ class AuthTest extends TestCase
      */
     public function it_can_generate_token_for_only_admin_users(): void
     {
-        $user = User::query()->first();
-        $user?->update(['is_admin' => 0]);
+        $user = User::query()
+            ->where('is_admin', UserType::user()->value)
+            ->first();
         $this->json('POST', route('admin.login'), [
             'email' => $user?->email,
             'password' => "userpassword",
@@ -116,12 +118,8 @@ class AuthTest extends TestCase
      */
     public function it_can_logout_user(): void
     {
-        $token = $this->getAdminAccessToken();
-
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->json('GET', route('admin.logout'))
+        $this->authenticateAdmin();
+        $this->get(route('admin.logout'))
             ->assertStatus(200);
     }
 }

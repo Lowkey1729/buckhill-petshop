@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Models\User;
 use App\Services\Enums\UserType;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Throwable;
@@ -24,29 +25,22 @@ abstract class TestCase extends BaseTestCase
     /**
      * @throws Throwable
      */
-    public function getAdminAccessToken(): string
+    public function authenticateAdmin(): void
     {
-        $this->user = User::query()->first();
-        $this->user?->update(['is_admin' => UserType::admin()->value]);
-        $response = $this->json('POST', route('admin.login'), [
-            'email' => $this->user?->email,
-            'password' => "userpassword",
-        ])->decodeResponseJson();
-
-        return $response['data']['token'];
+        /** @var Authenticatable $user */
+        $user = $this->user = User::query()
+             ->where('is_admin', UserType::admin()->value)
+             ->first();
+        $this->actingAs($user, 'jwt');
     }
 
     /**
      * @throws Throwable
      */
-    public function getUserAccessToken(): string
+    public function authenticateUser(): void
     {
-        $this->user = User::query()->first();
-        $response = $this->json('POST', route('user.login'), [
-            'email' => $this->user?->email,
-            'password' => "userpassword",
-        ]);
-
-        return $response['data']['token'];
+        /** @var Authenticatable $user */
+        $user = $this->user = User::query()->first();
+        $this->actingAs($user, 'jwt');
     }
 }

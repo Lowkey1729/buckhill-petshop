@@ -57,6 +57,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e): Response
     {
         return $this->shouldReturnJson($request, $e)
+        && $this->allowedException($e)
             ? $this->handleJsonResponses($e)
             : $this->prepareResponse($request, $e);
     }
@@ -83,11 +84,22 @@ class Handler extends ExceptionHandler
 
     protected function httpResponseException(
         string $message,
-        int $httpStatusCode
+        int    $httpStatusCode
     ): JsonResponse {
         return ApiResponse::failed(
             $message,
             httpStatusCode: $httpStatusCode
         );
+    }
+
+    protected function allowedException(Throwable $e): bool
+    {
+        return match (true) {
+            $e instanceof MethodNotAllowedHttpException,
+            $e instanceof NotFoundHttpException,
+            $e instanceof InvalidSignatureException,
+            $e instanceof AuthenticationException => true,
+            default => false
+        };
     }
 }

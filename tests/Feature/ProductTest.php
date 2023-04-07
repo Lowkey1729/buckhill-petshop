@@ -18,13 +18,8 @@ class ProductTest extends TestCase
      */
     public function it_can_validate_create_product_request(): void
     {
-        $token = $this->getUserAccessToken();
-        $this->withHeaders(
-            [
-                'Authorization' => "Bearer " . $token
-            ]
-        )->json('POST', route('product.create-product'), [
-
+        $this->authenticateUser();
+        $this->post(route('product.create-product'), [
         ])->assertStatus(422);
     }
 
@@ -34,12 +29,8 @@ class ProductTest extends TestCase
      */
     public function it_can_create_a_product(): void
     {
-        $token = $this->getUserAccessToken();
-        $this->withHeaders(
-            [
-                'Authorization' => "Bearer " . $token
-            ]
-        )->json('POST', route('product.create-product'), [
+        $this->authenticateUser();
+        $this->post(route('product.create-product'), [
             'category_uuid' => Category::query()->first()?->uuid,
             'title' => fake()->title,
             'price' => fake()->numberBetween(123.9, 890.34),
@@ -57,12 +48,8 @@ class ProductTest extends TestCase
      */
     public function it_can_update_a_product(): void
     {
-        $token = $this->getUserAccessToken();
-        $this->withHeaders(
-            [
-                'Authorization' => "Bearer " . $token
-            ]
-        )->json('PUT', route(
+        $this->authenticateUser();
+        $this->put(route(
             'product.update-product',
             Product::query()->first()?->uuid
         ), [

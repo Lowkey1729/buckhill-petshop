@@ -15,7 +15,7 @@ class UserTest extends TestCase
      */
     public function it_can_view_user_orders(): void
     {
-        $token = $this->getUserAccessToken();
+        $this->authenticateUser();
         Payment::factory()->create();
         OrderStatus::factory()->create();
         $this->user?->orders()->create([
@@ -36,9 +36,7 @@ class UserTest extends TestCase
             'order_status_id' => OrderStatus::query()
                 ->first('id')?->id,
         ]);
-        $response = $this->withHeaders([
-            'Authorization' => "Bearer " . $token
-        ])->json('GET', route('user.orders'))
+        $response = $this->get(route('user.orders'))
             ->assertStatus(200);
 
         $this->assertArrayHasKey("orders", $response['data']);

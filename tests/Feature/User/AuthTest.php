@@ -82,12 +82,8 @@ class AuthTest extends TestCase
      */
     public function it_can_logout_user(): void
     {
-        $token = $this->getUserAccessToken();
-
-
-        $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->json('GET', route('user.logout'))
+        $this->authenticateUser();
+        $this->get(route('user.logout'))
             ->assertStatus(200);
     }
 
@@ -97,10 +93,8 @@ class AuthTest extends TestCase
      */
     public function it_can_create_token_to_reset_a_user_password(): void
     {
-        $token = $this->getUserAccessToken();
-        $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->json('POST', route('user.forgot-password'), [
+        $this->authenticateUser();
+        $response = $this->post(route('user.forgot-password'), [
             'email' => $this->user?->email
         ]);
         $this->assertArrayHasKey('reset_token', $response['data']);
@@ -112,10 +106,8 @@ class AuthTest extends TestCase
      */
     public function it_can_reset_password_via_token_for_a_user(): void
     {
-        $token = $this->getUserAccessToken();
-        $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->json('POST', route('user.forgot-password'), [
+        $this->authenticateUser();
+        $response = $this->post(route('user.forgot-password'), [
             'email' => $this->user?->email
         ]);
         $token = $response['data']['reset_token'];
@@ -129,7 +121,6 @@ class AuthTest extends TestCase
                 'password' => 'password',
                 'password_confirmation' => 'password'
             ]);
-
 
         $this->assertTrue($response['error'] === null);
     }

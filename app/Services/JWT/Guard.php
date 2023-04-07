@@ -19,7 +19,7 @@ final class Guard
     /**
      * The number of minutes tokens should be allowed to remain valid.
      */
-    protected int|null $expiration;
+    protected string|null $expiration;
 
     /**
      * The provider name.
@@ -30,10 +30,10 @@ final class Guard
      * Create a new guard instance.
      *
      * @param AuthFactory $auth
-     * @param int|null $expiration
+     * @param string|null $expiration
      * @param string|null $provider
      */
-    public function __construct(AuthFactory $auth, int|null $expiration = null, string|null $provider = null)
+    public function __construct(AuthFactory $auth, string|null $expiration = null, string|null $provider = null)
     {
         $this->auth = $auth;
         $this->expiration = $expiration;
