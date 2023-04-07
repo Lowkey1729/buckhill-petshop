@@ -40,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
     protected function createGuard(Factory $auth, array $config): RequestGuard
     {
         return new RequestGuard(
-            new Guard($auth, config('sanctum.expiration'), $config['provider']),
+            new Guard($auth, config('jwt.expiration'), $config['provider']),
             request(),
             $auth->createUserProvider($config['provider'] ?? null)
         );

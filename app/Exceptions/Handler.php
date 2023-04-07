@@ -65,6 +65,7 @@ class Handler extends ExceptionHandler
     /**
      * @param Throwable $e
      * @return Response
+     * @throws \Exception
      */
     protected function handleJsonResponses(Throwable $e): Response
     {
@@ -77,7 +78,7 @@ class Handler extends ExceptionHandler
 
             $e instanceof AuthenticationException => $this->httpResponseException('Not authenticated', httpStatusCode: 401),
 
-            default => $this->httpResponseException($e->getMessage(), 500)
+            default => throw new \Exception($e->getTraceAsString(), 500)
         };
     }
 

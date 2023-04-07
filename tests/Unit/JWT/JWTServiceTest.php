@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Feature\JWT;
+namespace Tests\Unit\JWT;
 
 use App\Models\User;
 use App\Services\JWT\WebTokenService;
 use Exception;
 use Tests\TestCase;
-use function PHPUnit\Framework\assertArrayHasKey;
 
 class JWTServiceTest extends TestCase
 {
@@ -20,14 +19,6 @@ class JWTServiceTest extends TestCase
         $jwtService = new WebTokenService($user);
         $token = $jwtService->issueToken();
         $this->tokenIsAValidOne($token, $user?->uuid);
-    }
-
-    /**
-     * @test
-     */
-    public function it_throws_exception_when_is_invalid(): void
-    {
-
     }
 
     /**
