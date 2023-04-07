@@ -42,11 +42,11 @@ Kindly ensure you use the commands below after installation of the package
 ## Credentials
 
 ### Admin
-email: admin@buckhill.co.uk
+email: admin@buckhill.co.uk <br>
 password: admin
 
 ### Users
-email: <any email from the user listings>
+email: <any email from the user listings> <br>
 password: userpassword
 
 
