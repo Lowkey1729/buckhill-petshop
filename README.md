@@ -7,6 +7,8 @@ to satisfy the needs of the FE team for them to be able to build the UI.
 
 ## Table of Contents
 
+- [Package](#package)
+- [Credentials](#credentials)
 - [Run via Docker](#run-via-docker)
 - [Access Mysql](#access-mysql)
 - [Swagger Documentation](#swagger-documentation)
@@ -24,6 +26,29 @@ First, Clone the repository into you your local environment
 ```bash
 git clone  https://github.com/Lowkey1729/buckhill-petshop.git
 ```
+
+## Package
+https://github.com/Lowkey1729/buckhill-currency-converter.git
+
+Kindly ensure you use the commands below after installation of the package
+```bash
+ make route-clear
+```
+
+```bash
+ make route-ache
+```
+
+## Credentials
+
+### Admin
+email: admin@buckhill.co.uk
+password: admin
+
+### Users
+email: <any email from the user listings>
+password: userpassword
+
 
 ## Run Via Docker
 

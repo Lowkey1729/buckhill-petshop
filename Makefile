@@ -83,6 +83,10 @@ sql:
 	docker compose exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
 redis:
 	docker compose exec redis redis-cli
+route-clear:
+	docker compose exec app php artisan route:clear
+route-cache:
+	docker compose exec app php artisan route:cache
 ide-helper:
 	docker compose exec app php artisan clear-compiled
 	docker compose exec app php artisan ide-helper:meta
