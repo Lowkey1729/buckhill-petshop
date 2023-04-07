@@ -3,10 +3,9 @@ info:
   title: Pet Shop API - Swagger Documentation
   description: >
 
-    <p>This API has been created with the goal to test the coding skills of the
-    candidates who are applying for a job position at <a
-    href='https://www.buckhill.co.uk/careers/work-with-us'
-    target='_blank'>Buckhill</a></p>
+    <p>
+    This task requires me to create an API that provides the necessary endpoints and HTTP request methods to satisfy the needs of the FE team for them to be able to build the UI.
+    </p>
 
     <p>- Wireframe: <a
     href='https://www.figma.com/file/jRvszqREqaiEQ5hyOULKbb/Frontend-task---Pet-shop-V2'
@@ -26,6 +25,7 @@ tags:
   - name: user
   - name: admin
   - name: file
+  - name: currency-converted
 paths:
   /api/v1/product/create:
     post:
@@ -2361,6 +2361,82 @@ paths:
                   type: text/csv
                   created_at: '2023-04-05T16:14:00.000000Z'
                   updated_at: '2023-04-05T16:14:00.000000Z'
+                error: null
+                errors: []
+                extra: []
+  /api/v1/currency/convert:
+    post:
+      tags:
+        - currency-converted
+      summary: Convert Currency
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  example: '120'
+                currency:
+                  type: string
+                  example: INR
+      responses:
+        '200':
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: nginx/1.23.4
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            X-Powered-By:
+              schema:
+                type: string
+                example: PHP/8.2.4
+            Cache-Control:
+              schema:
+                type: string
+                example: no-cache, private
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Apr 2023 15:18:08 GMT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Encoding:
+              schema:
+                type: string
+                example: gzip
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: 1
+                data:
+                  currency: INR
+                  primary_currency: EUR
+                  amount: '120'
+                  converted_amount: 10724.400000000001
+                  rate: '89.37'
                 error: null
                 errors: []
                 extra: []
