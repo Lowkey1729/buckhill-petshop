@@ -72,6 +72,9 @@ You can then run any mysql commands there. e.g.
     This is to prevent the test cases from making use of our local databases.
 ```bash
 create database buckhill_petshop_db;
+```
+
+```bash
 create database buckhill_petshop_test_db;
 ```
 
