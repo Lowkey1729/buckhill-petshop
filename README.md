@@ -59,7 +59,7 @@ make
 ```
 
 The **make** command runs the following automatically, this means that the
-**make** command is sufficient to run all of this on the fly
+**make** command is sufficient to run all of the commands below on the fly
 
 ```bash
 docker compose build
