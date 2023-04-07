@@ -64,16 +64,34 @@ To access the mysql command line on docker, run the command below.
 You can then run any mysql commands there. e.g.
 
 ```bash
-    mysql -u root -p
+    mysql -u root
 ```
 
 1. Please, Ensure you have a database created for the local database and the test database.
    e.g. **buckhill_petshop_db** for local db and **buckhill_petshop_test_db** for test db.
     This is to prevent the test cases from making use of our local databases.
+```bash
+create database buckhill_petshop_db;
+create database buckhill_petshop_test_db;
+```
+
+You can exit the **mysql** bash using the command below
+
+```bash
+exit;
+```
 
 ## Migrate And Seed Database
+
+
 ```bash
-    php artisan migrate --seed
+    make fresh
+```
+
+The above command runs the command below under the hood.
+
+```bash
+docker compose exec app php artisan migrate:fresh --seed
 ```
 
 ## Swagger Documentation
@@ -95,7 +113,7 @@ You can then run any mysql commands there. e.g.
 To run the PSR12 format test, run
 
 ```bash
-./vendor/bin/pint
+docker compose exec app ./vendor/bin/pint
 ```
 
 ## Testing
@@ -103,7 +121,7 @@ To run the PSR12 format test, run
 To run tests, run
 
 ```bash
-php artisan test
+docker compose exec app php artisan test
 ```
 
 ## PHPStan
@@ -111,13 +129,13 @@ php artisan test
 To run PHP stan, run
 
 ```bash
-./vendor/bin/phpstan analyse
+docker compose exec app ./vendor/bin/phpstan analyse
 ```
 
 ## Code Analysis(Php-insights)
 
 ```bash
-./vendor/bin/phpinsights 
+docker compose exec app ./vendor/bin/phpinsights 
 ```
 
 
