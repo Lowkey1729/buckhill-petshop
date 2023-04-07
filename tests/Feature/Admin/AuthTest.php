@@ -43,7 +43,7 @@ class AuthTest extends TestCase
         $user?->update(['email_verified_at' => null]);
         $this->json('POST', route('admin.login'), [
             'email' => $user?->email,
-            'password' => "password",
+            'password' => "userpassword",
         ])->assertStatus(401);
     }
 
@@ -56,7 +56,7 @@ class AuthTest extends TestCase
         $user?->update(['is_admin' => UserType::admin()->value]);
         $response = $this->json('POST', route('admin.login'), [
             'email' => $user?->email,
-            'password' => "password",
+            'password' => "userpassword",
         ]);
 
         $response->assertStatus(200);
@@ -73,7 +73,7 @@ class AuthTest extends TestCase
         $user?->update(['is_admin' => 0]);
         $this->json('POST', route('admin.login'), [
             'email' => $user?->email,
-            'password' => "password",
+            'password' => "userpassword",
         ])->assertStatus(403);
     }
 

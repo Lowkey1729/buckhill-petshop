@@ -30,7 +30,7 @@ abstract class TestCase extends BaseTestCase
         $this->user?->update(['is_admin' => UserType::admin()->value]);
         $response = $this->json('POST', route('admin.login'), [
             'email' => $this->user?->email,
-            'password' => "admin",
+            'password' => "userpassword",
         ])->decodeResponseJson();
 
         return $response['data']['token'];
